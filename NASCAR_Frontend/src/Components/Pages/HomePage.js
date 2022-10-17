@@ -52,7 +52,8 @@ export class HomePage extends Component {
     }
 
     async populateWeatherData() {
-        const response = await fetch('api/wf');
+        const response = await fetch('api');
+        console.log(response);
         const data = await response.json();
         this.setState({ forecasts: data, loading: false });
     }

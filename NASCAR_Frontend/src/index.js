@@ -1,20 +1,28 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom'
-import ReactDOM from 'react-dom/client';
-import App from './App';
+import { createRoot } from 'react-dom/client';
+import   App   from './App';
 import 'bootstrap/dist/css/bootstrap.css';
 import './bootstrap.min.css';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+//import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+/*const rootElement = createRoot(document.getElementById('root'));
 
-//const root = document.getElementById('root');
-ReactDOM.render(
+render(
     <BrowserRouter>
         <App />
     </BrowserRouter>,
-    root
+    rootElement);*/
+
+const container = document.getElementById('root');
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
+root.render(
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>
 );
+
 
 /*const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
@@ -47,4 +55,5 @@ serviceWorkerRegistration.unregister();
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();*/
+*/
+//reportWebVitals();

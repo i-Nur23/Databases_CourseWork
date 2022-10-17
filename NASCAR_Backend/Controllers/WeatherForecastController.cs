@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace NASCAR_Backend.Controllers
 {
     [ApiController]
-    [Route("api/wf")]
+    [Route("api")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
