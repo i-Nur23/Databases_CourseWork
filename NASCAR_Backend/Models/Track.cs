@@ -13,7 +13,7 @@ namespace NASCAR_Backend.Models
         public int Id { get; set; }
 
         [Required]
-        [Column("TracksName", TypeName = "varchar(15)")]
+        [Column("TracksName", TypeName = "varchar(60)")]
         public string Name { get; set; }
 
         [Required]
@@ -27,6 +27,10 @@ namespace NASCAR_Backend.Models
         [Required]
         [Column("TracksCity", TypeName = "nvarchar(18)")]
         public string City { get; set; }
+
+        [Required]
+        [Column(TypeName = "float")]
+        public double Length { get; set; }
 
     }
 }
