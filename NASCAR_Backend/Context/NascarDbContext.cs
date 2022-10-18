@@ -20,8 +20,9 @@ namespace NASCAR_Backend.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Pilot>().HasAlternateKey(u => u.CarsNumber);
+            //modelBuilder.Entity<Pilot>().HasAlternateKey(u => u.CarsNumber);
             modelBuilder.Entity<Pilot>().HasCheckConstraint("PerformanceStatus", "PerformanceStatus IN ('OFF', 'ON', 'PT')");
+            modelBuilder.Entity<Pilot>().Property(u => u.CarsNumber).HasDefaultValue(0);
 
             modelBuilder.Entity<Team>().HasAlternateKey(u => u.Name);
 

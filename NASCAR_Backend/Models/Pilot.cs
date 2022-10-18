@@ -42,8 +42,9 @@ namespace NASCAR_Backend.Models
         [Required]
         public bool PlayOffStatus { get; set; }
 
+        [Required]
         [Range(1,99)]
-        public int ? CarsNumber { get; set; }
+        public int CarsNumber { get; set; }
 
         [Range(0, Int32.MaxValue)]
         public int? Points { get; set; }
