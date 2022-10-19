@@ -12,7 +12,7 @@ namespace NASCAR_Backend.Models
         public int StageNumber { get; set; }
 
         [Required]
-        [Column("StagesName", TypeName = "varchar(30)")]
+        [Column("StagesName", TypeName = "varchar(60)")]
         public string Name { get; set; }
 
         [Required]

@@ -16,9 +16,9 @@ namespace NASCAR_Backend.Models
         [Column(TypeName = "date")]
         public DateTime ChangesDate { get; set; }
 
-        [Range(1, 99)]
+        [Range(0, 99)]
         public int ? OldNumber { get; set; }
-        [Range(1, 99)]
+        [Range(0, 99)]
         public int ? NewNumber { get; set; }
 
         [Required]
