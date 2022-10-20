@@ -5,42 +5,25 @@ export class HomePage extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { forecasts: [], loading: true };
+        this.state = { top5Pilots: [], loading: true };
     }
 
     componentDidMount() {
-        this.populateWeatherData();
+        this.populateHome();
     }
 
-    static renderForecastsTable(forecasts) {
+    static renderHomePage(top5Pilots) {
         return (
-            <table className='table table-striped' aria-labelledby="tabelLabel">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Temp. (C)</th>
-                        <th>Temp. (F)</th>
-                        <th>Summary</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {forecasts.map(forecast =>
-                        <tr key={forecast.date}>
-                            <td>{forecast.date}</td>
-                            <td>{forecast.temperatureC}</td>
-                            <td>{forecast.temperatureF}</td>
-                            <td>{forecast.summary}</td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
+            <div><h1>Welcome</h1></div>
         );
     }
 
     render() {
         let contents = this.state.loading
-            ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-            : HomePage.renderForecastsTable(this.state.forecasts);
+            ? <div className='d-flex justify-content-center my-auto'>
+                <p><em>Loading... please wait.</em></p>
+              </div>
+            : HomePage.renderHomePage(this.state.top5Pilots);
 
         return (
             <div>
@@ -51,7 +34,7 @@ export class HomePage extends Component {
         );
     }
 
-    async populateWeatherData() {
+    async populateHome() {
         const response = await fetch('api');
         console.log(response);
         const data = await response.json();

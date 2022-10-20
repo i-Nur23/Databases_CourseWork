@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client';
 import   App   from './App';
 import 'bootstrap/dist/css/bootstrap.css';
 import './bootstrap.min.css';
+import './customStyles.css';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 //import reportWebVitals from './reportWebVitals';
 
