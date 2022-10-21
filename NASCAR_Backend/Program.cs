@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using NASCAR_Backend.Context;
+using NASCAR_Backend.Repositories;
+using NASCAR_Backend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,8 +10,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<NascarDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<NascarDbContext>(options => options
+                                                            .UseLazyLoadingProxies()
+                                                            .UseSqlServer(connectionString));
 
+builder.Services.AddTransient<PilotsRepository>();
+
+builder.Services.AddTransient<PilotsService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -47,10 +47,11 @@ namespace NASCAR_Backend.Models
         public int CarsNumber { get; set; }
 
         [Range(0, Int32.MaxValue)]
-        public int? Points { get; set; }
+        public int Points { get; set; }
 
         public int ? TeamID{ get; set; }
-        public Team ? Team { get; set; }
+        [ForeignKey("TeamID")]
+        public virtual Team ? Team { get; set; }
 
     }
 }

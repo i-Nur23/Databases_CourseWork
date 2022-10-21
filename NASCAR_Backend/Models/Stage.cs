@@ -21,6 +21,6 @@ namespace NASCAR_Backend.Models
 
         [Required]
         public int TrackID { get; set; }
-        public Track Track { get; set; }
+        public virtual Track Track { get; set; }
     }
 }

@@ -9,13 +9,13 @@ namespace NASCAR_Backend.Models
         [Required]
         [Range(1, Int32.MaxValue)]
         public int PilotID { get; set; }
-        public Pilot Pilot { get; set; }
+        public virtual Pilot Pilot { get; set; }
 
         [Required]
         [Range(1, Int32.MaxValue)]
         public int StageID  { get; set; }
         [ForeignKey("StageID")]
-        public Stage Stage { get; set; } 
+        public virtual Stage Stage { get; set; } 
 
         [Required]
         [Range(1, Int32.MaxValue)]

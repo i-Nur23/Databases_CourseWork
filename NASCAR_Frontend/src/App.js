@@ -8,9 +8,6 @@ import  { HomePage } from './Components/Pages/HomePage';
             render(){
             return(
                 <Layout>
-                    <Route exact path='/'>
-                        <HomePage />
-                    </Route>
                     <Route exact path='/' component={HomePage} />
                 </Layout>
             );

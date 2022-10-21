@@ -42,11 +42,12 @@ export class NavMenu extends Component {
         return (
             <header className="sticky-top">
                 <Navbar className="navbar-expand-lg navbar-toggleable-sm ng-white border-bottom box-shadow mb-5" style={{ backgroundColor: '#656566' }} light>
-                    <Container className="container-fluid d-flex">
+                    <Container className="container-fluid d-flex justify-content-between">
+                        <Nav>
                         <NavbarBrand className="" tag={Link} to="/">
                                 <img type = 'image\jpg' src = 'Images\NASCAR_Logo.png' className='img-fluid logo'/>
                         </NavbarBrand>
-                        <Nav>
+                        
                         <NavItem>
                             <NavLink tag={Link} to="/" className='text-light'>Пилоты</NavLink>
                         </NavItem>
@@ -62,7 +63,7 @@ export class NavMenu extends Component {
                         </Nav>
                         <Nav>
                         <NavItem>
-                            <NavLink tag={Link} to="/" className='btn btn-info'><i class="bi bi-person-workspace"></i></NavLink>
+                            <NavLink tag={Link} to="/" className='btn btn-info'><i className="bi bi-person-workspace"></i> Войти администратором</NavLink>
                         </NavItem>    
                         </Nav>
                     </Container>

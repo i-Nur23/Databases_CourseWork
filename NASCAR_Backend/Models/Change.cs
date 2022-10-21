@@ -23,6 +23,6 @@ namespace NASCAR_Backend.Models
 
         [Required]
         public int PilotID { get; set; }
-        public Pilot Pilot { get; set; }
+        public virtual Pilot Pilot { get; set; }
     }
 }
