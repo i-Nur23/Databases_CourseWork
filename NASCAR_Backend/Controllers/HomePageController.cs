@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NASCAR_Backend.Models;
 using NASCAR_Backend.Services;
+using System.Text.Json;
 
 namespace NASCAR_Backend.Controllers
 {
@@ -25,6 +26,7 @@ namespace NASCAR_Backend.Controllers
                 result.Add(new PilotInfo(item.Id, item.Name, item.SurName, item.CarsNumber, item.Points, item?.Team?.Name));
             }
             return result;
+
         }
 
         public record class PilotInfo (int Id, string Name, string Surname,int Number ,int Points, string? Team);

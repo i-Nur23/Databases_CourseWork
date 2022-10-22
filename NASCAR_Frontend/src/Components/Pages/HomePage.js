@@ -1,6 +1,6 @@
-import BaseComponent from 'bootstrap/js/dist/base-component';
 import React, { Component } from 'react';
-import { UncontrolledCarousel, Carousel, CarouselItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { UncontrolledCarousel, List } from 'reactstrap';
 //import { Carousel } from 'react-responsive-carousel';
 export class HomePage extends Component {
     static displayName = HomePage.name;
@@ -9,11 +9,38 @@ export class HomePage extends Component {
         super(props);
         this.WelcomeCarousel = this.WelcomeCarousel.bind(this);
         this.renderHomePage = this.renderHomePage.bind(this);
+        this.ListOfTopFive = this.ListOfTopFive.bind(this);
         this.state = { top5Pilots: [], loading: true };
     }
 
     componentDidMount() {
         this.populateHome();
+    }
+
+    ListOfTopFive(){
+        const top5 = this.state.top5Pilots;
+
+        return(
+            <table className='table'>
+            <thead>
+                <tr>
+                    <th className='text-center'>Место</th>
+                    <th colSpan={2} className='text-center'>Пилот</th>
+                    <th className='text-center'>Машина</th>
+                    <th className='text-center'>Очки</th>
+                </tr>
+            </thead>
+            <tbody>
+                {top5.map((pilot,index) => (
+                    <tr key={pilot.id.toString()}>
+                        <td align='center'>{index + 1}</td>
+                        <td colSpan={2} align='center'>{pilot.name} {pilot.surname}</td>
+                        <td align='center'>{pilot.number}</td>
+                        <td align='center'>{pilot.points}</td>
+                    </tr>))}
+            </tbody>
+            </table>
+        );
     }
 
     WelcomeCarousel(){
@@ -47,8 +74,15 @@ export class HomePage extends Component {
     }
 
 
-    renderHomePage(top5Pilots) {
+    renderHomePage() {
+        const pilots = this.state.top5Pilots.map((pilot) => {
+            <li key={pilot.id}>{pilot.name}</li>
+        })
+
+        console.log(pilots);
+
         return (
+            <div className='container'>
             <div className='d-flex justify-content-center carDiv'>
                 <div className='position-relative'>
                     <this.WelcomeCarousel/>
@@ -58,7 +92,18 @@ export class HomePage extends Component {
                 </div>
             </div>
 
-            
+            <div className='row mt-5'>
+                <div className='col-4 position-relative'>
+                    <h2>Текущая турнирная таблица</h2>
+                    <div className='position-absolute bottom-0 mb-4'>
+                        <a className="grey-ref" href="\table">смотреть всю таблицу</a>
+                    </div>
+                </div>
+                <div className='col'>
+                    <this.ListOfTopFive/>
+                </div>
+            </div>
+            </div>
         )            
     }
 
@@ -67,7 +112,7 @@ export class HomePage extends Component {
             ? <div className='d-flex justify-content-center my-auto'>
                 <p><em>Loading... please wait.</em></p>
               </div>
-            : <this.renderHomePage top5Pilots={this.state.top5Pilots}/>;
+            : <this.renderHomePage/>;
         
         return (
             <div className='d-flex justify-content-center'>

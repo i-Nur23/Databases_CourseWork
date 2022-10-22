@@ -49,7 +49,7 @@ export class NavMenu extends Component {
                         </NavbarBrand>
                         
                         <NavItem>
-                            <NavLink tag={Link} to="/" className='text-light'>Пилоты</NavLink>
+                            <NavLink tag={Link} to="/pilots" className='text-light'>Пилоты</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink tag={Link} to="/" className='text-light'>Календарь</NavLink>
