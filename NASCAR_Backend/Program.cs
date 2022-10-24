@@ -14,9 +14,11 @@ builder.Services.AddDbContext<NascarDbContext>(options => options
                                                             .UseLazyLoadingProxies()
                                                             .UseSqlServer(connectionString));
 
-builder.Services.AddTransient<PilotsRepository>();
+builder.Services.AddScoped<PilotsRepository>();
+builder.Services.AddScoped<StagesRepository>();
 
-builder.Services.AddTransient<PilotsService>();
+builder.Services.AddScoped<StagesService>();
+builder.Services.AddScoped<PilotsService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

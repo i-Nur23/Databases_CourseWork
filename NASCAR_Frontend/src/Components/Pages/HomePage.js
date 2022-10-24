@@ -10,7 +10,9 @@ export class HomePage extends Component {
         this.WelcomeCarousel = this.WelcomeCarousel.bind(this);
         this.renderHomePage = this.renderHomePage.bind(this);
         this.ListOfTopFive = this.ListOfTopFive.bind(this);
-        this.state = { top5Pilots: [], loading: true };
+        this.state = { top5Pilots: [],
+            nearestStage : null, 
+            loading: true };
     }
 
     componentDidMount() {
@@ -125,6 +127,6 @@ export class HomePage extends Component {
         const response = await fetch('api');
         console.log(response);
         const data = await response.json();
-        this.setState({ top5Pilots: data, loading: false });
+        this.setState({ top5Pilots: data.pilots, nearestStage: data.nearestStage, loading: false });
     }
 }
