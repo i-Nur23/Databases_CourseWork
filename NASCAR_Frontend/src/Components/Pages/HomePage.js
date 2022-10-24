@@ -10,13 +10,58 @@ export class HomePage extends Component {
         this.WelcomeCarousel = this.WelcomeCarousel.bind(this);
         this.renderHomePage = this.renderHomePage.bind(this);
         this.ListOfTopFive = this.ListOfTopFive.bind(this);
-        this.state = { top5Pilots: [],
+        this.getFullDate = this.getFullDate.bind(this);
+
+        this.state = { 
+            top5Pilots: [],
             nearestStage : null, 
-            loading: true };
+            loading: true 
+        };
     }
 
     componentDidMount() {
         this.populateHome();
+    }
+
+    getFullDate(){
+        let date = this.state.nearestStage.eventsDate;
+        let year = date.substr(0,4);
+        let mounth = date.substr(5,2);
+        let day = date.substr(8,2);
+        switch (mounth){
+            case '02':
+                mounth = 'февраля';
+                break;
+            case '03':
+                mounth = 'марта';
+                break;
+            case '04':
+                mounth = 'апреля';
+                break;
+            case '05':
+                mounth = 'мая';
+                break;
+            case '06':
+                mounth = 'июня';
+                break;
+            case '07':
+                mounth = 'июля';
+                break;
+            case '08':
+                mounth = 'августа';
+                break;
+            case '09':
+                mounth = 'января';
+                break;
+            case '10':
+                mounth = 'февраля';
+                break;
+            case '11':
+                mounth = 'марта';
+                break;
+        }
+        return day + " " + mounth + " " + year + " г."
+
     }
 
     ListOfTopFive(){
@@ -94,7 +139,7 @@ export class HomePage extends Component {
                 </div>
             </div>
 
-            <div className='row mt-5'>
+            <div className='row p-2 mt-5 shadow border border-2 rounded'>
                 <div className='col-4 position-relative'>
                     <h2>Текущая турнирная таблица</h2>
                     <div className='position-absolute bottom-0 mb-4'>
@@ -104,6 +149,14 @@ export class HomePage extends Component {
                 <div className='col'>
                     <this.ListOfTopFive/>
                 </div>
+            </div>
+
+            <div className='p-2 mt-5 shadow border border-2 rounded' style={{marginLeft:"-12px",marginRight:"-12px"}}>
+                <center><h2>Ближайший этап</h2></center>
+                <center><h3>{this.state.nearestStage.name}</h3></center>
+                <br/>
+                <p>Автодром: <a className='grey-ref' href="\stages"><strong>{this.state.nearestStage.tracksName}</strong></a></p>
+                <p>Дата: {this.getFullDate()}</p>
             </div>
             </div>
         )            
