@@ -91,7 +91,7 @@ export class HomePage extends Component {
     }
 
     WelcomeCarousel(){
-        return(<div>
+        return(<div className="rounded">
         <UncontrolledCarousel
                 items={[
                 {

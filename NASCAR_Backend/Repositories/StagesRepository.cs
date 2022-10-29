@@ -8,15 +8,17 @@ namespace NASCAR_Backend.Repositories
     public class StagesRepository
     {
         private readonly NascarDbContext _context;
+        private readonly ResultsRepository _resultsRepository;
 
-        public StagesRepository(NascarDbContext context)
+        public StagesRepository(NascarDbContext context, ResultsRepository results)
         {
             _context = context;
+            _resultsRepository = results;
         }
 
         public async Task<Stage> GetNearestStage()
         {
-            int nearestStagesID = !_context.Results.Any() ? 1 : _context.Results.Max(u => u.StageID) + 1;
+            int nearestStagesID = await _resultsRepository.GetNumberOfNearestStageAsync();
 
             var stage = await _context.Stages.FirstOrDefaultAsync(u => u.StageNumber == nearestStagesID);
             return stage; 

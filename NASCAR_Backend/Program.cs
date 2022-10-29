@@ -13,10 +13,17 @@ string connectionString = builder.Configuration.GetConnectionString("DefaultConn
 builder.Services.AddDbContext<NascarDbContext>(options => options
                                                             .UseLazyLoadingProxies()
                                                             .UseSqlServer(connectionString));
-
+// Repositories
 builder.Services.AddScoped<PilotsRepository>();
 builder.Services.AddScoped<StagesRepository>();
+builder.Services.AddScoped<TeamsRepository>();
+builder.Services.AddScoped<ResultsRepository>();
+builder.Services.AddScoped<ManufacturersRepository>();
+builder.Services.AddScoped<ChangesRepository>();
+builder.Services.AddScoped<TracksRepository>();
 
+// Services
+builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<StagesService>();
 builder.Services.AddScoped<PilotsService>();
 

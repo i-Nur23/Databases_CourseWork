@@ -21,7 +21,7 @@ namespace NASCAR_Backend.Controllers
         }
 
         [HttpGet]
-        public async  Task<HomePageJson> GetTopFive()
+        public async Task<HomePageJson> GetTopFive()
         {
             var pilots = await _pilotsService.GetTopFivePilotsAsync();
             var result = new List<PilotInfo>();
