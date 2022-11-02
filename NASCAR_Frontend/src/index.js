@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom'
 import { createRoot } from 'react-dom/client';
 import   App   from './App';
-import 'bootstrap-icons/font/bootstrap-icons.css'
+import "../node_modules/bootstrap/dist/js/bootstrap";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import './bootstrap.min.css';
 import './customStyles.css';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';

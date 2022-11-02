@@ -6,7 +6,7 @@ namespace NASCAR_Backend.Services
 {
     public class JwtService
     {
-        private string secureKey = "fs245lou[oez56i";
+        private string secureKey = "fs245lou[oez56idfdsfs456d45";
 
         public string Generate()
         {

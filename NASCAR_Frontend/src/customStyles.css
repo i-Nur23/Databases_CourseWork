@@ -17,6 +17,26 @@ a.grey-ref:hover{
     text-decoration: underline;
 }
 
-frame{
-    
+.log-form:focus{
+    color : #fff
+}
+
+footer.to-bottom{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+#page-container{
+    position: relative;
+    min-height: 100vh;
+}
+
+#content-container{
+    padding-bottom: 200px;
+}
+
+#tool-button{
+    bottom: 15%;
+    left: 2%;
 }

@@ -1,74 +1,62 @@
 import React, { Component } from 'react';
+import Cookies from 'js-cookie';
 import { Collapse, Container, Navbar, NavbarBrand, NavItem, NavLink, Nav, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-export class NavMenu extends Component {
-    static displayName = NavMenu.name;
+function NavMenu(props){
 
-    constructor(props) {
-        super(props);
+    const logout = async () => {
+        await fetch('api/auth', {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'},
+            credentials: 'include',
+    })
+        props.setToken("");
+    };
 
-        this.toggleNavbar = this.toggleNavbar.bind(this);
-        this.spaceBetween = this.spaceBetween.bind(this);
-        this.state = {
-            collapsed: true
-        };
+    let logingForm;
+    if (props.token === ''){
+        logingForm = (
+            <NavLink tag={Link} to="/auth" className='btn btn-info log-form'><i className="bi bi-person-workspace"></i> Войти администратором</NavLink>
+        )
+    } else {
+        logingForm = (
+            <NavLink tag={Link} to="/" className='btn btn-danger log-form' onClick={logout}><i className="bi bi-box-arrow-right"></i></NavLink>
+        )
     }
 
-    toggleNavbar() {
-        this.setState({
-            collapsed: !this.state.collapsed
-        });
-    }
 
-    spaceBetween() {
-        if (!this.state.collapsed) {
-            return null;
-        } else {
-            return (<p>&nbsp;&nbsp;&nbsp;</p>);
-        }
-    }
-
-    isCenterText() {
-        let classText = "text-dark"
-        if (this.state.collapsed) {
-            return classText;
-        } else {
-            return classText + " text-center";
-        }
-    }
-
-    render() {
-        return (
-            <header className="sticky-top">
-                <Navbar className="navbar-expand-lg navbar-toggleable-sm ng-white border-bottom box-shadow mb-5" style={{ backgroundColor: '#656566' }} light>
-                    <Container className="container-fluid d-flex justify-content-between">
-                        <Nav>
-                        <NavbarBrand className="" tag={Link} to="/">
-                                <img type = 'image\jpg' src = 'Images\NASCAR_Logo.png' className='img-fluid logo'/>
-                        </NavbarBrand>
-                        
-                        <NavItem>
-                            <NavLink tag={Link} to="/pilots" className='text-light'>Пилоты</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink tag={Link} to="/" className='text-light'>Календарь</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink tag={Link} to="/" className='text-light'>Треки</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink tag={Link} to="/" className='text-light'>Таблица</NavLink>
-                        </NavItem>
-                        </Nav>
-                        <Nav>
-                        <NavItem>
-                            <NavLink tag={Link} to="/" className='btn btn-info'><i className="bi bi-person-workspace"></i> Войти администратором</NavLink>
-                        </NavItem>    
-                        </Nav>
-                    </Container>
-                </Navbar>
-            </header>
-        );
-    }
+    return (
+        <header className="sticky-top">
+            <Navbar className="navbar-expand-lg navbar-toggleable-sm ng-white border-bottom box-shadow mb-5" style={{ backgroundColor: '#656566' }} light>
+                <Container className="container-fluid d-flex justify-content-between">
+                    <Nav>
+                    <NavbarBrand className="" tag={Link} to="/">
+                            <img type = 'image\jpg' src = 'Images\NASCAR_Logo.png' className='img-fluid logo'/>
+                    </NavbarBrand>
+                    
+                    <NavItem>
+                        <NavLink tag={Link} to="/pilots" className='text-light'>Пилоты</NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink tag={Link} to="/races" className='text-light'>Календарь</NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink tag={Link} to="/tracks" className='text-light'>Треки</NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink tag={Link} to="/results" className='text-light'>Таблица</NavLink>
+                    </NavItem>
+                    </Nav>
+                    <Nav>
+                    <NavItem>
+                        {logingForm}
+                    </NavItem>    
+                    </Nav>
+                </Container>
+            </Navbar>
+        </header>
+    );
 }
+
+export default NavMenu;

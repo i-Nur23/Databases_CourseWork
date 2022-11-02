@@ -26,6 +26,7 @@ builder.Services.AddScoped<TracksRepository>();
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<StagesService>();
 builder.Services.AddScoped<PilotsService>();
+builder.Services.AddScoped<TracksService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -45,7 +46,8 @@ if (app.Environment.IsDevelopment())
 app.UseCors(options => options
         .AllowAnyOrigin()
         .AllowAnyMethod()
-        .AllowAnyHeader());
+        .AllowAnyHeader()
+        );
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

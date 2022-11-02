@@ -122,11 +122,6 @@ export class HomePage extends Component {
 
 
     renderHomePage() {
-        const pilots = this.state.top5Pilots.map((pilot) => {
-            <li key={pilot.id}>{pilot.name}</li>
-        })
-
-        console.log(pilots);
 
         return (
             <div className='container'>
@@ -143,7 +138,7 @@ export class HomePage extends Component {
                 <div className='col-4 position-relative'>
                     <h2>Текущая турнирная таблица</h2>
                     <div className='position-absolute bottom-0 mb-4'>
-                        <a className="grey-ref" href="\table">смотреть всю таблицу</a>
+                        <a className="grey-ref" href="/table">смотреть всю таблицу</a>
                     </div>
                 </div>
                 <div className='col'>

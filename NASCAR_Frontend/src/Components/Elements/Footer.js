@@ -11,7 +11,7 @@ export class Footer extends Component {
 
     render() {
         return (
-            <footer className="text-center text-lg-start bg-light text-muted p-3">
+            <footer className="text-center text-lg-start bg-light text-muted p-3 to-bottom">
                 <div className="container-fluid container">
                     <div className="d-flex justify-content-between">
                         <p>{this.state.year}</p>
