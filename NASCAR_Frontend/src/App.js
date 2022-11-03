@@ -6,19 +6,11 @@ import { Pilots } from './Components/Pages/Pilots';
 import { ResultsTable } from './Components/Pages/ResultsTable';
 import Tracks from './Components/Pages/Tracks';
 import  AuthAdmin  from './Components/Pages/AuthAdmin';
-import AddResult from './Components/Pages/AddResult';
+import AddPilotsInResult from './Components/Pages/AddResult';
 
     function App(){
         const [token, setToken] = useState('');
-
-        const AuthCheckAddResult = () =>{
-            console.log(token == '');
-            if (token != ''){
-                return <AddResult/>
-            } else {
-                return <Redirect to='/'/>                
-            }
-    }
+    
 
         useEffect(() => {
             (
@@ -47,7 +39,7 @@ import AddResult from './Components/Pages/AddResult';
                         {token != '' ? <Redirect to="/"/> : <AuthAdmin token={token} setToken = {setToken}/>}
                     </Route>
                     <Route path='/addresult'>
-                        {token != '' ? <AddResult/> : null}
+                        {token != '' ? <AddPilotsInResult/> : null}
                     </Route>
             </Layout>
         )

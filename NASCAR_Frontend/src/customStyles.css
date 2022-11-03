@@ -17,6 +17,16 @@ a.grey-ref:hover{
     text-decoration: underline;
 }
 
+a.black-ref{
+    color:black;
+    text-decoration: none;
+}
+  
+a.black-ref:hover{
+    color: black;
+    text-decoration: underline;
+}
+
 .log-form:focus{
     color : #fff
 }

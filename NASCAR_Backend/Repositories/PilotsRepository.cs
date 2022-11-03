@@ -13,9 +13,19 @@ namespace NASCAR_Backend.Repositories
             _context = context;
         }
 
+        public async Task<IEnumerable<Pilot>> GetParticipatingPilots()
+        {
+            _context.ChangeTracker.LazyLoadingEnabled = false;
+            return await _context.Pilots
+                .Where(p => p.CarsNumber != 0)
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<Pilot>> GetPilotsByOrder()
         {
-            return await _context.Pilots.OrderBy(p => p.Points).ToListAsync();
+            return await _context.Pilots
+                .OrderBy(p => p.Points)
+                .ToListAsync();
         }
     }
 }

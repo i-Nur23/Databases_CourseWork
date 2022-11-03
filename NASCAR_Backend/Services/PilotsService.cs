@@ -12,6 +12,16 @@ namespace NASCAR_Backend.Services
             _repository = repository;
         }
 
+        public async Task<IEnumerable<Pilot>> GetParticipatingPilots()
+        {
+            return await _repository.GetParticipatingPilots();
+        }
+        public async Task<IEnumerable<Pilot>> GetPilotsToAddResult(List<int> IDs)
+        {
+            var pilots = await _repository.GetParticipatingPilots();
+            return pilots.Where(x => IDs.Contains(x.Id));
+        }
+
         public async Task<IEnumerable<Pilot>> GetPilotsAsync()
         {
             var pilots = await _repository.GetPilotsByOrder();

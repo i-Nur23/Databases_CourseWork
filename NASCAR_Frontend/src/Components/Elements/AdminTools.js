@@ -28,7 +28,7 @@ function AdminTools(props){
                 <div className='offcanvas-body'>
                     <strong>
                     <ul class="list-group list-group-flush">
-                    <li class="list-group-item p-3"><a className='grey-ref' role='button' href='/addresult'>Добавить результат</a></li>
+                    <li class="list-group-item p-3"><a className='black-ref' role='button' href='/addresult'>Добавить результат</a></li>
                     <li class="list-group-item p-3"><a role='button'>Изменить результат</a></li>
                     <li class="list-group-item p-3"><a role='button'>Добавить нового пилота</a></li>
                     <li class="list-group-item p-3"><a role='button'>Замена машины</a></li>
