@@ -89,13 +89,36 @@ function ConfigureResults(props){
             },
             body: JSON.stringify(pilotsResults),
         });
+        window.location.reload();
+    }
+
+    const mixAll = () => {
+        var arr = cardList;
+        var newArr = new Array(cardList.length)
+        for (let i = 0; i < cardList.length; i++){
+            var item = arr[Math.floor(Math.random()*arr.length)];
+            console.log(item);
+            newArr[i] = structuredClone(cardList[i]);
+            newArr[i].order = item.order;
+            arr = arr.filter(x => x != item);
+        }
+
+        setCardList(newArr.sort(sortCards));
+        console.log(newArr);
+        
     }
 
 
         return(
             <div className='my-4 p-2 shadow border border-2 rounded'>
                 <br/>
-                <h3 className='p-2'>Порядок финиша:</h3>
+                <div className='d-flex  justify-content-between'>
+                    <h3 className='p-2 mb-0'>Порядок финиша:</h3>
+                    <button className='btn btn-dark' onClick={mixAll}>
+                        Случайно
+                    </button>    
+                </div>
+                
                 <br/>
                 {cardList.sort(sortCards).map(card =>
                     <div
@@ -105,7 +128,7 @@ function ConfigureResults(props){
                         onDragOver={(e) => dragOverHandler(e)}
                         onDrop={(e) => dropHandler(e,card)}
                         draggable={true}
-                        className="border rounded-2 m-2 p-2 d-flex justify-content-between"
+                        className="border rounded-2 m-2 d-flex justify-content-between"
                     >
                         <div>
                             {card.order}

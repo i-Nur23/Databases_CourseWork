@@ -74,6 +74,7 @@ export class HomePage extends Component {
                     <th className='text-center'>Место</th>
                     <th colSpan={2} className='text-center'>Пилот</th>
                     <th className='text-center'>Машина</th>
+                    <th className='text-center'>Победы</th>
                     <th className='text-center'>Очки</th>
                 </tr>
             </thead>
@@ -83,6 +84,7 @@ export class HomePage extends Component {
                         <td align='center'>{index + 1}</td>
                         <td colSpan={2} align='center'>{pilot.name} {pilot.surname}</td>
                         <td align='center'>{pilot.number}</td>
+                        <td align='center'>{pilot.wins}</td>
                         <td align='center'>{pilot.points}</td>
                     </tr>))}
             </tbody>

@@ -27,7 +27,7 @@ namespace NASCAR_Backend.Controllers
             var result = new List<PilotInfo>();
             foreach (var item in pilots)
             {
-                result.Add(new PilotInfo(item.Id, item.Name, item.SurName, item.CarsNumber, item.Points, item?.Team?.Name));
+                result.Add(new PilotInfo(item.Id, item.Name, item.SurName, item.Wins ,item.CarsNumber, item.Points, item?.Team?.Name));
             }
 
             var nearestStage = await _stagesService.GetNearestStageAsync();

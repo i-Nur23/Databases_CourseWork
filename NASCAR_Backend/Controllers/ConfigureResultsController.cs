@@ -32,7 +32,6 @@ namespace NASCAR_Backend.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] PlaceInfo[] Res) {
-            Console.WriteLine(Res);
             await _resultsService.AddResultsAsync(Res);
 
             return Ok();
