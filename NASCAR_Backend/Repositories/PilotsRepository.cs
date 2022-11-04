@@ -178,5 +178,14 @@ namespace NASCAR_Backend.Repositories
 
             });
         }
+
+        public async Task AddPilotAsync(Pilot pilot)
+        {
+            await Task.Run(() =>
+            {
+                _context.Add(pilot);
+                _context.SaveChanges();
+            });
+        }
     }
 }

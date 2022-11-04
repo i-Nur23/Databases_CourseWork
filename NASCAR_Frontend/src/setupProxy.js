@@ -5,7 +5,8 @@ const context = [
     "/api/auth",
     "/api/tracks",
     "/api/addresult",
-    "/api/addresult/configure"
+    "/api/addresult/configure",
+    "/api/pilot"
 ];
 
 module.exports = function (app) {

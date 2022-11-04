@@ -34,6 +34,11 @@ namespace NASCAR_Backend.Services
             return pilots.Take(5);
         }
 
-
+        public async Task AddPilotAsync(Pilot pilot)
+        {
+            await Task.Run(async () => {
+                await _repository.AddPilotAsync(pilot);
+            });
+        }
     }
 }

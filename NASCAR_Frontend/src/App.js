@@ -7,6 +7,7 @@ import { ResultsTable } from './Components/Pages/ResultsTable';
 import Tracks from './Components/Pages/Tracks';
 import  AuthAdmin  from './Components/Pages/AuthAdmin';
 import AddPilotsInResult from './Components/Pages/AddResult';
+import AddPilot from './Components/Pages/AddPilot';
 
     function App(){
         const [token, setToken] = useState('');
@@ -40,6 +41,9 @@ import AddPilotsInResult from './Components/Pages/AddResult';
                     </Route>
                     <Route path='/addresult'>
                         {token != '' ? <AddPilotsInResult/> : null}
+                    </Route>
+                    <Route path='/addpilot'>
+                        {token != '' ? <AddPilot/> : null}
                     </Route>
             </Layout>
         )
