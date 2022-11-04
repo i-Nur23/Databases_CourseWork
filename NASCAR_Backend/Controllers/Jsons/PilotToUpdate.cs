@@ -1,4 +1,15 @@
 ﻿namespace NASCAR_Backend.Controllers.Jsons
 {
-    public record class PilotToUpdate(string Name, string SurName, DateTime birthDate, string Country, string State, string City);
+    public class PilotToUpdate {
+        public string Name { get; set; } 
+        public string SurName { get; set; } 
+        public DateTime birthDate { get; set; }
+        public string Country { get; set; }
+        public string ? State { get; set; }
+        public string City { get; set; }
+        public int Number { get; set; }
+
+        public string Status { get; set; }
+
+    };
 }

@@ -1,5 +1,6 @@
 ﻿using NASCAR_Backend.Repositories;
 using NASCAR_Backend.Models;
+using NASCAR_Backend.Controllers.Jsons;
 
 namespace NASCAR_Backend.Services
 {
@@ -34,10 +35,27 @@ namespace NASCAR_Backend.Services
             return pilots.Take(5);
         }
 
-        public async Task AddPilotAsync(Pilot pilot)
+        public async Task AddPilotAsync(PilotToUpdate pilot)
         {
+            var newPilot = new Pilot()
+            {
+                Name = pilot.Name,
+                SurName = pilot.SurName,
+                BirthCountry = pilot.Country,
+                BirthState = (pilot.State.Length == 0) ? null : pilot.State,
+                BirthCity = pilot.City,
+                CarsNumber = pilot.Number,
+                BirthDate = pilot.birthDate,
+                PerformanceStatus = pilot.Status,
+                Points = 0,
+                Wins = 0,
+                PlayOffStatus = false,
+            };
+
+            Console.WriteLine(newPilot);
+
             await Task.Run(async () => {
-                await _repository.AddPilotAsync(pilot);
+                await _repository.AddPilotAsync(newPilot);
             });
         }
     }

@@ -17,8 +17,9 @@ namespace NASCAR_Backend.Controllers
         
 
         [HttpPost]
-        public IActionResult PostPilot([FromBody] PilotToUpdate pilots)
+        public async Task<IActionResult> PostPilot([FromBody] PilotToUpdate pilot)
         {
+            await _pilotService.AddPilotAsync(pilot);
             return Ok();
         }
     }
