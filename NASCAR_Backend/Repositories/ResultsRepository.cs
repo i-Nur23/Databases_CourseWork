@@ -28,5 +28,14 @@ namespace NASCAR_Backend.Repositories
 
             return await GetNumberOfCurrentStageAsync() + 1;
         }
+
+        public async Task AddResult(List<Result> results)
+        {
+            await Task.Run(async () =>
+            {
+                await _context.Results.AddRangeAsync(results);
+                _context.SaveChanges();
+            });
+        }
     }
 }

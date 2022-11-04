@@ -25,6 +25,8 @@ namespace NASCAR_Backend.Context
             modelBuilder.Entity<Pilot>().Property(u => u.CarsNumber).HasDefaultValue(0);
             modelBuilder.Entity<Pilot>().HasCheckConstraint("CarsNumber", "CarsNumber >= 0 AND CarsNumber <= 99");
             modelBuilder.Entity<Pilot>().HasCheckConstraint("Points", "Points >= 0");
+            modelBuilder.Entity<Pilot>().HasCheckConstraint("Wins", "Wins >= 0 AND Wins <= 36");
+
 
             modelBuilder.Entity<Team>().HasAlternateKey(u => u.Name);
             modelBuilder.Entity<Team>().HasCheckConstraint("FoundationYear", "FoundationYear >= 1900 AND FoundationYear <= 2021");

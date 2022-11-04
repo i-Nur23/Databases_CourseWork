@@ -27,6 +27,7 @@ builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<StagesService>();
 builder.Services.AddScoped<PilotsService>();
 builder.Services.AddScoped<TracksService>();
+builder.Services.AddScoped<ResultsService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -81,12 +81,13 @@ function ConfigureResults(props){
     }
 
     const postRace = async () => {
+        var pilotsResults = cardList.map(x => { return { id : x.id, order : x.order}});
         await fetch('api/addresult/configure', {
             method: 'POST', headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
             },
-            body: JSON.stringify(cardList.map(x => {x.id, x.order})),
+            body: JSON.stringify(pilotsResults),
         });
     }
 
