@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
 import { Collapse, Container, Navbar, NavbarBrand, NavItem, NavLink, Nav, Button } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link }  from 'react-router-dom';
 
 function NavMenu(props){
 

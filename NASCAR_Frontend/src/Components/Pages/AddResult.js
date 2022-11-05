@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import ConfigureResults from './ConfigureResults';
-import {Route, useRouteMatch} from 'react-router'
 
 function AddPilotsInResult () {
     const [stage, setStage] = useState('');

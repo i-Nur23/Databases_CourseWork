@@ -10,6 +10,24 @@ function AddPilot(){
     const [city, setCity] = useState('');
     const [number, setNumber] = useState(0);
     const [status, setStatus] = useState('PT');
+    const [team, setTeam] = useState(1);
+    const [teamsList, setTeamsList] = useState([]);
+
+    useEffect(() => {
+        (
+            async () => {
+
+                const response = await fetch('api/team/all', {
+                    headers: {'Content-Type': 'application/json'},
+                    credentials: 'include',
+                });
+
+                const content = await response.json();
+
+                setTeamsList(content.teams);
+            }
+        )();
+    }, []);
 
     const addPilot = async () => {
         var bday = new Date(date);
@@ -22,10 +40,9 @@ function AddPilot(){
             city : city,
             number : number,
             birthDate : date,
-            status : status
+            status : status,
+            team : team
         }
-        console.log(typeof(pilot.birthDate));
-        console.log(pilot.birthDate);
 
         var res = await fetch('api/pilot', {
             method: 'POST', headers: {
@@ -34,7 +51,7 @@ function AddPilot(){
             },
             body: JSON.stringify(pilot),
         });
-        var feedback = await res.json();
+        window.location.reload();
     }
 
     const formChange = event => {
@@ -129,7 +146,9 @@ function AddPilot(){
         setStatus(e.target.value);
     }
 
-
+    const changeTeam = (e) => {
+        setTeam(e.target.value);
+    }
 
     const SelectNum = () => {
         var nums = Array.from(Array(100).keys())
@@ -142,18 +161,29 @@ function AddPilot(){
         )
     }
 
+    const SelectTeam= () => {
+        console.log(team);
+        return (
+            <select value={team} class="form-select" id="teamField" aria-describedby="numHelp" onChange={changeTeam}>
+                {teamsList.map(x => 
+                    <option value={x.id}>{x.name}</option>    
+                )}
+            </select>
+        )
+    }
+
 
     return (
         <div>
             <center><h2>Введите данные о новом пилоте</h2></center>
             <div onChange={formChange}>
                 <div className='row g-2'>
-                    <div className='col-5 p-3'>
+                    <div className='col-4 p-3'>
                         <label for="nameField" className="form-label">Имя (на латинице) </label>
                         <input type="text" value={name} class="form-control required" id="nameField" aria-describedby="nameHelp" onChange={changeName}/>
                     </div>
 
-                    <div className='col-5 p-3'>
+                    <div className='col-4 p-3'>
                         <label for="surnameField" className="form-label">Фамилия (на латинице) </label>
                         <input type="text" value={surname} class="form-control required" id="surnameField" aria-describedby="nameHelp" onChange={changeSurName}/>
                     </div>
@@ -161,6 +191,13 @@ function AddPilot(){
                     <div className='col-2 p-3'>
                         <label for="dateField" className="form-label">Дата рождения </label>
                         <input type="date" value={date} class="form-control required" id="dateField" aria-describedby="nameHelp" onChange={changeDate}/>
+                    </div>
+                    <div className='col-2 p-3'>
+                        <label for="cityField" className="form-label">Статус выступлений</label>
+                        <select value={status} class="form-select" onChange={changeStatus}>
+                            <option value="PT">Партаймер</option>
+                            <option value="ON">Полное расписние</option>
+                        </select>
                     </div>
                 </div>
                 <div className='row g-2'>
@@ -184,15 +221,12 @@ function AddPilot(){
                         <SelectNum/>
                         <div id="numHelp" class="form-text">Оставить 0, если номер еще не определен</div>
                     </div>
-                    <div className='col-sm p-3'>
-                        <label for="cityField" className="form-label">Статус выступлений</label>
-                        <select value={status} class="form-select" onChange={changeStatus}>
-                            <option value="PT">Партаймер</option>
-                            <option value="ON">Полное расписние</option>
-                        </select>
-                    </div>
                 </div>
-                <div className='row g-2 p-3'>
+                <div className='px-2'>
+                        <label for="cityField" className="form-label">Команда</label>
+                        <SelectTeam/>
+                    </div>
+                <div className='row g-2 p-3 mt-3'>
                     <button className='btn btn-primary g-2 px-3 col-3' type="submit" onClick={checkSubmitForm}>
                         Добавить
                     </button>

@@ -6,7 +6,10 @@ const context = [
     "/api/tracks",
     "/api/addresult",
     "/api/addresult/configure",
-    "/api/pilot"
+    "/api/pilot",
+    "/api/team",
+    "/api/stages",
+    "/api/results"
 ];
 
 module.exports = function (app) {

@@ -183,9 +183,14 @@ namespace NASCAR_Backend.Repositories
         {
             await Task.Run(() =>
             {
-                _context.Add(pilot);
+                _context.Pilots.Add(pilot);
                 _context.SaveChanges();
             });
+        }
+
+        public async Task<Pilot> GetByNumber(int number)
+        {
+            return await _context.Pilots.FirstOrDefaultAsync(x => x.CarsNumber == number);
         }
     }
 }

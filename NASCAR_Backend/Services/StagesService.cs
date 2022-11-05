@@ -5,17 +5,22 @@ namespace NASCAR_Backend.Services
 {
     public class StagesService
     {
-        private readonly StagesRepository _repository;
+        private readonly StagesRepository _stagesRepository;
 
         public StagesService(StagesRepository repository)
         {
-                _repository = repository;
+                _stagesRepository = repository;
         }
 
         public async Task<Stage> GetNearestStageAsync()
         {
-            var stage = await _repository.GetNearestStage();  
+            var stage = await _stagesRepository.GetNearestStage();  
             return stage;
+        }
+
+        public async Task<IEnumerable<Stage>> GetPastStagesAsync()
+        {
+            return await _stagesRepository.GetPastStagesAsync();
         }
     }
 }

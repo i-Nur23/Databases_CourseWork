@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { UncontrolledCarousel, List } from 'reactstrap';
 //import { Carousel } from 'react-responsive-carousel';
 export class HomePage extends Component {

@@ -13,8 +13,8 @@ namespace NASCAR_Backend.Models
         public int Id { get; set; }
 
         [Required]
-        [Column(TypeName = "date")]
-        public DateTime ChangesDate { get; set; }
+        [Range(1,36)]
+        public int StageNumber { get; set; }
 
         [Range(0, 99)]
         public int ? OldNumber { get; set; }

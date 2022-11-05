@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react';
-import { Redirect, Route, useHistory } from 'react-router';
+import { Redirect, Route, Switch, useHistory, withRouter } from 'react-router-dom';
 import { Layout } from './Components/Elements/Layout';
 import  { HomePage } from './Components/Pages/HomePage';
 import { Pilots } from './Components/Pages/Pilots';
@@ -8,6 +8,7 @@ import Tracks from './Components/Pages/Tracks';
 import  AuthAdmin  from './Components/Pages/AuthAdmin';
 import AddPilotsInResult from './Components/Pages/AddResult';
 import AddPilot from './Components/Pages/AddPilot';
+import ChangeResult from './Components/Pages/ChangeResult';
 
     function App(){
         const [token, setToken] = useState('');
@@ -32,6 +33,7 @@ import AddPilot from './Components/Pages/AddPilot';
 
         return(
             <Layout token={token} setToken={setToken}>
+                
                     <Route exact path='/' component={HomePage} />
                     <Route path='/pilots' component={Pilots} />
                     <Route path='/table' component={ResultsTable} />
@@ -45,8 +47,13 @@ import AddPilot from './Components/Pages/AddPilot';
                     <Route path='/addpilot'>
                         {token != '' ? <AddPilot/> : null}
                     </Route>
+                    <Route path='/changeresult'>
+                        {token != '' ? <ChangeResult/> : null}
+                    </Route>
+                
+                    
             </Layout>
         )
     }
 
-export default App
+export default withRouter(App)

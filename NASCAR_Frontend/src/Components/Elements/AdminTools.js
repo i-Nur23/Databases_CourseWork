@@ -1,5 +1,4 @@
 import React from 'react'
-import {Button, Offcanvas, OffcanvasHeader, OffcanvasBody} from 'reactstrap'
 
 function AdminTools(props){
     if (props.token != ''){
@@ -29,7 +28,7 @@ function AdminTools(props){
                     <strong>
                     <ul class="list-group list-group-flush">
                     <li class="list-group-item p-3"><a className='black-ref' role='button' href='/addresult'>Добавить результат</a></li>
-                    <li class="list-group-item p-3"><a role='button'>Изменить результат</a></li>
+                    <li class="list-group-item p-3"><a className='black-ref' role='button' href='/changeresult'>Изменить результат</a></li>
                     <li class="list-group-item p-3"><a className='black-ref' role='button' href='/addpilot'>Добавить нового пилота</a></li>
                     <li class="list-group-item p-3"><a role='button'>Замена машины</a></li>
                     <li class="list-group-item p-3"><a role='button'>Изменить информацию о пилоте</a></li>
