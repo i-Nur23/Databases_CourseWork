@@ -32,7 +32,7 @@ namespace NASCAR_Backend.Services
                 var gap = 0;
                 for (int i = 0; i < numOfPilots; i++)
                 {
-                    var chance = (int)( 100 * (double)placeInfo[i].order / numOfPilots);
+                    var chance = (int)(100 * (double)placeInfo[i].order / numOfPilots);
                     var numOfPits = avgNumOfPitStops;
 
                     if (rand.Next(25, 100) < chance)
@@ -58,6 +58,11 @@ namespace NASCAR_Backend.Services
                     Console.WriteLine(item.PilotID + " " + item.StageID + " " + item.Place + " " + item.LeaderGap + " " + item.NumberOfPitStops);
                 }*/
             });
+        }
+
+        public IEnumerable<Result> GetByStageID (int stageId)
+        {
+            return _resultsRepository.GetByStageID(stageId);
         }
 
 

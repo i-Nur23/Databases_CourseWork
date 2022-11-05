@@ -57,6 +57,7 @@ const SelectStage = withRouter((props) => {
 
 const Result = withRouter((props) => {
     const [stageId, setStageId] = useState(0);
+    const [results, setResults] = useState([]);
 
 
     useEffect(() => {
@@ -64,12 +65,12 @@ const Result = withRouter((props) => {
             async () => {
                 
                 setStageId(props.match.params.Id);
-                const response = await fetch('api/results/' + stageId, {
+                const response = await fetch('api/results/byStage' + stageId, {
                     headers: {'Content-Type': 'application/json'},
                 });
 
                 var content = await response.json();
-                setStages(content.stages);       
+                setResults(content.results);       
             }
         )();
     }, []);
@@ -78,7 +79,7 @@ const Result = withRouter((props) => {
 
   return (
     <div>
-      <h3>{Id}</h3>
+      <h3>{stageId}</h3>
     </div>
   );
 })

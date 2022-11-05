@@ -1,4 +1,5 @@
-﻿using NASCAR_Backend.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using NASCAR_Backend.Context;
 using NASCAR_Backend.Models;
 
 namespace NASCAR_Backend.Repositories
@@ -36,6 +37,13 @@ namespace NASCAR_Backend.Repositories
                 await _context.Results.AddRangeAsync(results);
                 _context.SaveChanges();
             });
+        }
+
+        public IEnumerable<Result> GetByStageID(int stageId)
+        {
+            return _context.Results
+                .Where(r => r.StageID == stageId)
+                .OrderBy(r => r.Place);
         }
     }
 }
