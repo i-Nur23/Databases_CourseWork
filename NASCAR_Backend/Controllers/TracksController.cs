@@ -21,7 +21,7 @@ namespace NASCAR_Backend.Controllers
             return Ok(new
             {
                 tracks = await _tracksService.GetTracksAsync()
-            }) ;
+            }) ; ;
         }
     }
 }

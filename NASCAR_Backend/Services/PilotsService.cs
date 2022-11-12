@@ -31,6 +31,18 @@ namespace NASCAR_Backend.Services
             return pilots;
         }
 
+        public async Task<Pilot> GetByIdAsync(int id)
+        {
+            var pilot = await _pilotsRepository.GetById(id);
+
+            if (pilot == null)
+            {
+                throw new ArgumentException();
+            }
+
+            return await _pilotsRepository.GetById(id);
+        }
+
         public async Task<IEnumerable<Pilot>> GetTopFivePilotsAsync()
         {
             var pilots = await _pilotsRepository.GetPilotsByOrder();
@@ -65,5 +77,47 @@ namespace NASCAR_Backend.Services
                 await _changesRepository.SetCarsNumberAsync(newPilot, pilot.Number);
             });
         }
+
+        public async Task PutPilot(int id, PilotToUpdate pilot)
+        {
+            var updatedPilot = await _pilotsRepository.GetById(id);
+            if (updatedPilot == null)
+            {
+                throw new ArgumentException();
+            }
+
+            if (pilot.Number != updatedPilot.CarsNumber && pilot.Number != 0)
+            {
+                var pilotWithSameNum = await _pilotsRepository.GetByNumber(pilot.Number);
+                if (pilotWithSameNum != null)
+                {
+                    await _changesRepository.SetCarsNumberAsync(pilotWithSameNum, 0);
+                }
+                await _changesRepository.SetCarsNumberAsync(updatedPilot, pilot.Number);
+            }
+
+            await _pilotsRepository.PutPilot(pilot, updatedPilot);
+        }
+
+        public async Task ChangePilotsNumberAsync(int id, int number)
+        {
+            var pilotToGetNewNumber = await _pilotsRepository.GetById(id);
+
+            if (pilotToGetNewNumber.CarsNumber == number) 
+            { 
+                return; 
+            }
+
+            var pilotWithSameNumber = await _pilotsRepository.GetByNumber(number);
+
+            if (pilotWithSameNumber == null)
+            {
+                await _changesRepository.SetCarsNumberAsync(pilotToGetNewNumber, number);
+                return;
+            }
+
+            await _changesRepository.ChangeNumberAsync(pilotWithSameNumber, pilotToGetNewNumber);
+        }
+
     }
 }

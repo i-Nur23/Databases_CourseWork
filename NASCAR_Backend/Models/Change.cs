@@ -16,6 +16,9 @@ namespace NASCAR_Backend.Models
         [Range(1,36)]
         public int StageNumber { get; set; }
 
+        [ForeignKey("StageNumber")]
+        public virtual Stage Stage { get; set; }
+
         [Range(0, 99)]
         public int ? OldNumber { get; set; }
         [Range(0, 99)]

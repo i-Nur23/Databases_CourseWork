@@ -9,6 +9,8 @@ import  AuthAdmin  from './Components/Pages/AuthAdmin';
 import AddPilotsInResult from './Components/Pages/AddResult';
 import AddPilot from './Components/Pages/AddPilot';
 import ChangeResult from './Components/Pages/ChangeResult';
+import PilotInfoChanger from './Components/Pages/PilotInfoChanger';
+import ChangeNumber from './Components/Pages/ChangeNumber';
 
     function App(){
         const [token, setToken] = useState('');
@@ -50,8 +52,15 @@ import ChangeResult from './Components/Pages/ChangeResult';
                     <Route path='/changeresult'>
                         {token != '' ? <ChangeResult/> : null}
                     </Route>
-                
-                    
+                    <Route path='/changepilotinfo'>
+                        {token != '' ? <PilotInfoChanger/> : null}
+                    </Route>
+                    <Route path='/changepilotinfo/:id'>
+                        {token != '' ? <PilotInfoChanger/> : null}
+                    </Route>
+                    <Route path='/changenum'>
+                        {token != '' ? <ChangeNumber/> : null}
+                    </Route>
             </Layout>
         )
     }

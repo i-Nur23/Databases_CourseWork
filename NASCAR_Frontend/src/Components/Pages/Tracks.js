@@ -17,7 +17,7 @@ function Tracks(){
                 setTracks(content.tracks);
             }
         )();
-    },);
+    }, []);
 
     const GetTracks = () => 
         <ul>

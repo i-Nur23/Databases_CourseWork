@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NASCAR_Backend.Context;
+using NASCAR_Backend.Controllers.Jsons;
 using NASCAR_Backend.Models;
 
 namespace NASCAR_Backend.Repositories
@@ -192,5 +193,26 @@ namespace NASCAR_Backend.Repositories
         {
             return await _context.Pilots.FirstOrDefaultAsync(x => x.CarsNumber == number);
         }
+
+        public async Task<Pilot> GetById(int id)
+        {
+            return await _context.Pilots.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task PutPilot(PilotToUpdate newInfo, Pilot currentPilot)
+        {
+            currentPilot.Name = newInfo.Name;
+            currentPilot.SurName = newInfo.SurName;
+            currentPilot.BirthDate = newInfo.birthDate;
+            currentPilot.BirthCountry = newInfo.Country;
+            currentPilot.BirthState = newInfo.State;
+            currentPilot.BirthCity = newInfo.City;
+            currentPilot.PerformanceStatus = newInfo.Status;
+            currentPilot.TeamID = newInfo.Team;
+
+            _context.Pilots.Update(currentPilot);
+            _context.SaveChanges();
+        }
+
     }
 }

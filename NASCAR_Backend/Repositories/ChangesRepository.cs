@@ -48,6 +48,10 @@ namespace NASCAR_Backend.Repositories
         {
             var nearestStageNumber = (await _stagesRepository.GetNearestStage()).StageNumber;
 
+
+            Console.WriteLine(nearestStageNumber);
+
+
             var change = new Change()
             {
                 OldNumber = pilot.CarsNumber,

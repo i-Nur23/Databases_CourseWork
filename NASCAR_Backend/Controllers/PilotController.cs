@@ -9,10 +9,12 @@ namespace NASCAR_Backend.Controllers
     public class PilotController : ControllerBase
     {
         private readonly PilotsService _pilotService;
+        private readonly TeamsService _teamsService;
 
-        public PilotController(PilotsService pilotsService)
+        public PilotController(PilotsService pilotsService, TeamsService teamsService)
         {
             _pilotService = pilotsService;
+            _teamsService = teamsService;
         }
         
 
@@ -23,5 +25,63 @@ namespace NASCAR_Backend.Controllers
             await _pilotService.AddPilotAsync(pilot);
             return Ok();
         }
+
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllPilots()
+        {
+            return Ok(new
+            {
+                pilots = await _pilotService.GetPilotsAsync()
+            }) ; ;
+        }
+
+        [HttpGet("change/{id}")]
+        public async Task<IActionResult> GetPilotById(int id)
+        {
+            try
+            {
+                return Ok(new
+                {
+                    pilot = await _pilotService.GetByIdAsync(id),
+                    teams = await _teamsService.GetAllAsync()
+                }); ;
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPut("change/{id}")]
+        public async Task<IActionResult> ChangePilotsInfo([FromBody] PilotToUpdate pilot, [FromRoute]int id)
+        {
+            try
+            {
+                await _pilotService.PutPilot(id, pilot);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("nums")]
+        public async Task<IActionResult> GetPilotsWithNums()
+        {
+            var pilotsWithNums = (await _pilotService.GetPilotsAsync()).Select(x => new {id = x.Id, name = x.Name, surName = x.SurName, carsNumber = x.CarsNumber });
+            return Ok(new
+            {
+                pilots = pilotsWithNums
+            }); ;
+        }  
+
+        [HttpPost("nums")]
+        public async Task<IActionResult> ChangePilotsNums([FromBody] PilotWithNewNumber pilot)
+        {
+            await _pilotService.ChangePilotsNumberAsync(pilot.Id, pilot.Number);
+            return Ok();
+        }
+
     }
 }

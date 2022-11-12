@@ -8,7 +8,6 @@
         public string ? State { get; set; }
         public string City { get; set; }
         public int Number { get; set; }
-
         public string Status { get; set; }
         public int Team { get; set; }
 
