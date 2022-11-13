@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NASCAR_Backend.Models;
 using NASCAR_Backend.Services;
+using System.Text.Json.Serialization;
 
 namespace NASCAR_Backend.Controllers
 {
@@ -22,7 +24,7 @@ namespace NASCAR_Backend.Controllers
             return Ok(new
             {
                 manufacturers = await _manufacturerService.GetAllManufacturers()
-            }); ;
+            }) ;
         }
     }
 }

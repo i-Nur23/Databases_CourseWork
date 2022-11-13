@@ -9,7 +9,8 @@ const context = [
     "/api/pilot",
     "/api/team",
     "/api/stages",
-    "/api/results"
+    "/api/results",
+    "/api/manufacturer"
 ];
 
 module.exports = function (app) {

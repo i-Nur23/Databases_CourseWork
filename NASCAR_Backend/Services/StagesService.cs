@@ -22,5 +22,15 @@ namespace NASCAR_Backend.Services
         {
             return await _stagesRepository.GetPastStagesAsync();
         }
+
+        public async Task<int> GetNearestStagenumber()
+        {
+            return (await _stagesRepository.GetNearestStage()).StageNumber;
+        }
+
+        public async Task<IEnumerable<Stage>> GetAllStagesAsync()
+        {
+            return await _stagesRepository.GetAllAsync();
+        }
     }
 }

@@ -23,5 +23,15 @@ namespace NASCAR_Backend.Controllers
             }); ; ;
         }
 
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAll()
+        {
+            return Ok(new
+            {
+                stages = await _stagesService.GetAllStagesAsync(),
+                nearestStage = await _stagesService.GetNearestStagenumber()
+            });
+        }
+
     }
 }

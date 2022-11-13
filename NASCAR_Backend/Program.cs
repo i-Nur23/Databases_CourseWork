@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using NASCAR_Backend.Context;
+using NASCAR_Backend.Mapping;
 using NASCAR_Backend.Repositories;
 using NASCAR_Backend.Services;
 
@@ -32,6 +33,7 @@ builder.Services.AddScoped<ChangesService>();
 builder.Services.AddScoped<TeamsService>();
 builder.Services.AddScoped<ManufacturerService>();
 
+builder.Services.AddAutoMapper(typeof(AutoMappingProfile));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

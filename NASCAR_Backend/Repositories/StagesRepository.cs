@@ -31,5 +31,10 @@ namespace NASCAR_Backend.Repositories
             return await _context.Stages.Where(x => x.StageNumber < nearestStagesID).ToListAsync();
         }
 
+        public async Task<IEnumerable<Stage>> GetAllAsync()
+        {
+            return await _context.Stages.ToListAsync();
+        }
+
     }
 }

@@ -36,7 +36,7 @@ function NavMenu(props){
                     </NavbarBrand>
                     
                     <NavItem>
-                        <NavLink tag={Link} to="/pilots" className='text-light'>Пилоты</NavLink>
+                        <NavLink tag={Link} to="/participants" className='text-light'>Участники</NavLink>
                     </NavItem>
                     <NavItem>
                         <NavLink tag={Link} to="/races" className='text-light'>Календарь</NavLink>

@@ -2,27 +2,11 @@ import React, { useState, useEffect } from 'react';
 import {withRouter, Switch, Route, Link} from 'react-router-dom'
 import { UncontrolledAccordion, AccordionItem ,AccordionHeader, AccordionBody } from 'reactstrap'
 
-function Pilots(props){
-    var path = props.match.path;
-    return(
-    <div>
-    <Switch>
-        <Route exact path={path}>
-            <ShowAllPilots/>
-        </Route>
-        <Route path={`${path}/:id`}>
-            <ShowPilotById/>
-        </Route>
-    </Switch>
-    </div>)
-}
-
-const ShowAllPilots = withRouter((props)=>{
-    var url = props.match.url
+const Participants = withRouter((props)=>{
 
     const [pilots, setPilots] = useState([]);
     const [teams, setTeams] = useState([]);
-    const [manufs, setManufs] = useState([]);
+    const [manufacturers, setManufs] = useState([]);
 
     useEffect(() => {
         (
@@ -66,7 +50,6 @@ const ShowAllPilots = withRouter((props)=>{
     }
 
     const PilotsAccordion = () => {
-        console.log( (new Date (Date.now())))
         return(
             <div class="accordion accordion-flush" id="accordionExample">
                 {pilots.map((pilot, index) => (
@@ -95,19 +78,56 @@ const ShowAllPilots = withRouter((props)=>{
         )
     }
 
-// id={`#body${index}`}
-{/*<UncontrolledAccordion flush>    
-            {pilotsToShow.map((pilot) => {
-                <AccordionItem>
-                    <AccordionHeader>
-                        {pilot.name} {pilot.surName}
-                    </AccordionHeader>
-                    <AccordionBody>
-                        {pilot.carsNumber}
-                    </AccordionBody>
-                </AccordionItem>
-            })}*}
-        </UncontrolledAccordion>*/}
+    const TeamsAccordion = () => {
+        return(
+            <div class="accordion accordion-flush" id="accordionExample">
+                {teams.map((team, index) => (
+                    <div class="accordion-item" key={team.id}>
+                    <h2 class="accordion-header" id={"heading" + index}>
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" aria-labelledby={"heading"+index} data-bs-target={`#collapse${index}`} aria-expanded="false" aria-controls={`collapse${index}`}>
+                        {team.name}
+                    </button>
+                    </h2>
+                    <div id={`collapse${index}`} class="accordion-collapse collapse" data-bs-parent="#accordionExample" aria-labelledby={"heading"+index}>
+                        <div class="accordion-body">
+                        <p><strong>Год основания:</strong> {team.foundationYear}</p>
+                        <p><strong>Основатель:</strong> {team.founder}</p>
+                        <p><strong>Производитель:</strong> {team.manufacturer.brand}</p>
+                        <p><strong>Количество очков:</strong> {team.points}</p>
+                        </div>
+                    </div>
+                    </div>
+            ))}
+            </div>
+                
+        )
+    }
+
+    const ManufacturersAccordion = () => {
+        return(
+            <div class="accordion accordion-flush" id="accordionExample">
+                {manufacturers.map((man, index) => (
+                    <div class="accordion-item" key={man.id}>
+                    <h2 class="accordion-header" id={"heading" + index}>
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" aria-labelledby={"heading"+index} data-bs-target={`#collapse${index}`} aria-expanded="false" aria-controls={`collapse${index}`}>
+                        {man.brand}
+                    </button>
+                    </h2>
+                    <div id={`collapse${index}`} class="accordion-collapse collapse" data-bs-parent="#accordionExample" aria-labelledby={"heading"+index}>
+                        <div class="accordion-body">
+                        <p><strong>Марка:</strong> {man.brand} {man.model}</p>
+                        <p><strong>Страна:</strong> {man.brandsCountry}</p>
+                        <p><strong>Количество очков:</strong> {man.points}</p>
+                        </div>
+                    </div>
+                    </div>
+            ))}
+            </div>
+                
+        )
+    }
+
+
     return (
         <div>
         <ul class="nav nav-tabs" role="tablist">
@@ -127,7 +147,10 @@ const ShowAllPilots = withRouter((props)=>{
                 <PilotsAccordion/>
             </div>
             <div class="tab-pane fade" id="teams" role="tabpanel">
-                <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
+                <TeamsAccordion/>
+            </div>
+            <div class="tab-pane fade" id="manufacturers" role="tabpanel">
+                <ManufacturersAccordion/>
             </div>
             </div>
         </div>
@@ -138,4 +161,4 @@ const ShowPilotById = withRouter((props) => {
 
 })
 
-export default withRouter(Pilots)
+export default withRouter(Participants)
