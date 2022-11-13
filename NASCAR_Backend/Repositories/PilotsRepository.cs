@@ -214,5 +214,19 @@ namespace NASCAR_Backend.Repositories
             _context.SaveChanges();
         }
 
+        public async Task<int> GetTeamsPoints(Team team)
+        {
+            return await _context.Pilots
+                .Where(p => p.Team == team)
+                .SumAsync(p => p.Points); 
+        }
+
+        public async Task<int> GetmanufacturerPoints(Manufacturer manufacturer)
+        {
+            return await _context.Pilots
+                .Where(p => p.Team.Manufacturer == manufacturer)
+                .SumAsync(p => p.Points);
+        }
+
     }
 }

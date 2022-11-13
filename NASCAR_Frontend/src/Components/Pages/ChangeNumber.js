@@ -15,7 +15,7 @@ function ChangeNumber(){
 
                 var content = await response.json();
                 setPilots(content.pilots);
-                setPilot(content.pilots[0].id)
+                setPilot(content.pilots[0].id)    
             }
         )();
     }, []);

@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from 'react';
 import { Redirect, Route, Switch, useHistory, withRouter } from 'react-router-dom';
 import { Layout } from './Components/Elements/Layout';
 import  { HomePage } from './Components/Pages/HomePage';
-import { Pilots } from './Components/Pages/Pilots';
+import  Pilots  from './Components/Pages/Pilots';
 import { ResultsTable } from './Components/Pages/ResultsTable';
 import Tracks from './Components/Pages/Tracks';
 import  AuthAdmin  from './Components/Pages/AuthAdmin';
@@ -37,7 +37,9 @@ import ChangeNumber from './Components/Pages/ChangeNumber';
             <Layout token={token} setToken={setToken}>
                 
                     <Route exact path='/' component={HomePage} />
-                    <Route path='/pilots' component={Pilots} />
+                    <Route path='/pilots'>
+                        <Pilots/>
+                    </Route>
                     <Route path='/table' component={ResultsTable} />
                     <Route path='/tracks' component={Tracks}/>
                     <Route path ='/auth'>

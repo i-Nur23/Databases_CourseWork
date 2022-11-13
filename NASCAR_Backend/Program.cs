@@ -30,6 +30,7 @@ builder.Services.AddScoped<TracksService>();
 builder.Services.AddScoped<ResultsService>();
 builder.Services.AddScoped<ChangesService>();
 builder.Services.AddScoped<TeamsService>();
+builder.Services.AddScoped<ManufacturerService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -10,6 +10,7 @@ export class HomePage extends Component {
         this.renderHomePage = this.renderHomePage.bind(this);
         this.ListOfTopFive = this.ListOfTopFive.bind(this);
         this.getFullDate = this.getFullDate.bind(this);
+        this.NextRace = this.NextRace.bind(this);
 
         this.state = { 
             top5Pilots: [],
@@ -91,6 +92,27 @@ export class HomePage extends Component {
         );
     }
 
+    NextRace(){
+        if (this.state.nearestStage.stageNumber !== 37){
+            return (
+                <div>
+                <center><h3>{this.state.nearestStage.name}</h3></center>
+                <br/>
+                <p>Автодром: <a className='grey-ref' href="\tracks"><strong>{this.state.nearestStage.tracksName}</strong></a></p>
+                <p>Дата: {this.getFullDate()}</p>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <center>Чемпионат окончен</center>
+                    <h4>Чемпион: <strong>{this.state.top5Pilots[0].name}  {this.state.top5Pilots[0].surName}</strong></h4>
+                </div>
+            )
+        }
+
+    }
+
     WelcomeCarousel(){
         return(<div className="rounded">
         <UncontrolledCarousel
@@ -149,10 +171,7 @@ export class HomePage extends Component {
 
             <div className='p-2 mt-5 shadow border border-2 rounded' style={{marginLeft:"-12px",marginRight:"-12px"}}>
                 <center><h2>Ближайший этап</h2></center>
-                <center><h3>{this.state.nearestStage.name}</h3></center>
-                <br/>
-                <p>Автодром: <a className='grey-ref' href="\stages"><strong>{this.state.nearestStage.tracksName}</strong></a></p>
-                <p>Дата: {this.getFullDate()}</p>
+                    <this.NextRace/>
             </div>
             </div>
         )            

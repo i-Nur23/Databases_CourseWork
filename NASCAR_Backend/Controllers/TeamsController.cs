@@ -21,5 +21,14 @@ namespace NASCAR_Backend.Controllers
                 teams = await _teamsService.GetAllAsync()
             }); ;
         }
+
+        [HttpGet("allwithpoints")]
+        public async Task<IActionResult> GetAllWithPoints()
+        {
+            return Ok(new
+            {
+                teams = await _teamsService.GetAllWithPoints()
+            });
+        }    
     }
 }
