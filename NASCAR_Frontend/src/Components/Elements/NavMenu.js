@@ -45,7 +45,7 @@ function NavMenu(props){
                         <NavLink tag={Link} to="/tracks" className='text-light'>Треки</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink tag={Link} to="/results" className='text-light'>Таблица</NavLink>
+                        <NavLink tag={Link} to="/table" className='text-light'>Таблица</NavLink>
                     </NavItem>
                     </Nav>
                     <Nav>

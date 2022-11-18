@@ -15,12 +15,33 @@ namespace NASCAR_Backend.Controllers
         }
 
         [HttpGet("byStage/{stageId}")]
-        public IActionResult GetByStage(int stageId)
+        public async Task<IActionResult> GetByStage(int stageId)
         {
             return Ok(new
             {
-                results = _resultsService.GetByStageID(stageId)
+                results = await _resultsService.GetByStageID(stageId)
             });
+        }
+
+        [HttpGet("withNums/{stageId}")]
+        public async Task<IActionResult> GetByStageWithNums(int stageId)
+        {
+            return Ok(new
+            {
+                results = await _resultsService.GetByStageIDWithActualNumbers(stageId)
+            }) ;
+        }
+
+        [HttpGet("table")]
+        public async Task<IActionResult> GetTable()
+        {
+            return Ok(new
+            {
+                pilotsRes = await _resultsService.GetPilotsTable(),
+                teamsRes = await _resultsService.GetTeamsTable(),
+                manRes = await _resultsService.GetManufacturersTable(),
+                currentRound = await _resultsService.CurrentRound()
+            }) ;
         }
     }
 }

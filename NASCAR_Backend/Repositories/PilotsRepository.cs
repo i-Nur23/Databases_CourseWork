@@ -9,7 +9,7 @@ namespace NASCAR_Backend.Repositories
     {
         private readonly NascarDbContext _context;
         private readonly Dictionary<int, int> PlayOffPointsForTopTen = new Dictionary<int, int>();
-        private readonly HashSet<int> PilotsWonInPlayOff = new HashSet<int>();
+        public HashSet<int> PilotsWonInPlayOff = new HashSet<int>();
 
 
         public PilotsRepository(NascarDbContext context)
@@ -30,6 +30,13 @@ namespace NASCAR_Backend.Repositories
             return await _context.Pilots
                 .OrderByDescending(p => p.Wins)
                 .ThenByDescending(p => p.Points)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Pilot>> GetPilotsByPoints()
+        {
+            return await _context.Pilots
+                .OrderByDescending(p => p.Points)
                 .ToListAsync();
         }
 
@@ -226,6 +233,11 @@ namespace NASCAR_Backend.Repositories
             return await _context.Pilots
                 .Where(p => p.Team.Manufacturer == manufacturer)
                 .SumAsync(p => p.Points);
+        }
+
+        public async Task<int> GetPilotsCount()
+        {
+            return await _context.Pilots.CountAsync();
         }
 
     }

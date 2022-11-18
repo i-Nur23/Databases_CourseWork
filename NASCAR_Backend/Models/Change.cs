@@ -20,9 +20,9 @@ namespace NASCAR_Backend.Models
         public virtual Stage Stage { get; set; }
 
         [Range(0, 99)]
-        public int ? OldNumber { get; set; }
+        public int OldNumber { get; set; }
         [Range(0, 99)]
-        public int ? NewNumber { get; set; }
+        public int NewNumber { get; set; }
 
         [Required]
         public int PilotID { get; set; }

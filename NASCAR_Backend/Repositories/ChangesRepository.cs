@@ -1,4 +1,5 @@
-﻿using NASCAR_Backend.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using NASCAR_Backend.Context;
 using NASCAR_Backend.Models;
 
 namespace NASCAR_Backend.Repositories
@@ -12,6 +13,28 @@ namespace NASCAR_Backend.Repositories
         {
             _context = context;
             _stagesRepository = stagesRepository;
+        }
+
+        public async Task<int> GetCurrentNum(int id, int stageNumber)
+        {   var lastChange = await _context.Changes.FirstOrDefaultAsync(x => x.PilotID == id);
+            if (lastChange == null)
+            {
+                return -1;
+            }
+
+            var pilotsNumChangeAfter = await _context.Changes
+                .Where(x => x.StageNumber > stageNumber)
+                .OrderBy(x => x.StageNumber)
+                .FirstOrDefaultAsync(x => x.PilotID == id);
+
+
+            if (pilotsNumChangeAfter != null)
+            {
+                return pilotsNumChangeAfter.OldNumber;
+            }
+
+            return -1;
+            
         }
 
         public async Task ChangeNumberAsync(Pilot pilot1, Pilot pilot2)

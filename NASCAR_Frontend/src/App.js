@@ -1,22 +1,23 @@
 import React, { Component, useState, useEffect } from 'react';
 import { Redirect, Route, Switch, useHistory, withRouter } from 'react-router-dom';
 import { Layout } from './Components/Elements/Layout';
-import  { HomePage } from './Components/Pages/HomePage';
-import  Participants  from './Components/Pages/Pilots';
-import { ResultsTable } from './Components/Pages/ResultsTable';
+import { HomePage } from './Components/Pages/HomePage';
+import Participants  from './Components/Pages/Pilots';
+import ResultsTable from './Components/Pages/ResultsTable';
 import Tracks from './Components/Pages/Tracks';
-import  AuthAdmin  from './Components/Pages/AuthAdmin';
+import AuthAdmin  from './Components/Pages/AuthAdmin';
 import AddPilotsInResult from './Components/Pages/AddResult';
 import AddPilot from './Components/Pages/AddPilot';
 import ChangeResult from './Components/Pages/ChangeResult';
 import PilotInfoChanger from './Components/Pages/PilotInfoChanger';
 import ChangeNumber from './Components/Pages/ChangeNumber';
 import Races from './Components/Pages/Races';
+import RaceInfo from './Components/Pages/RaceInfo';
 
     function App(){
         const [token, setToken] = useState('');
-    
-
+        
+        
         useEffect(() => {
             (
                 async () => {
@@ -28,7 +29,6 @@ import Races from './Components/Pages/Races';
                     const content = await response.json();
     
                     setToken(content.token);
-                    console.log(token)
                 }
             )();
         }, [token]);
@@ -41,13 +41,17 @@ import Races from './Components/Pages/Races';
                     <Route path='/participants'>
                         <Participants/>
                     </Route>
+                    <Switch>
                     <Route path='/races'>
-                        {token != '' ? <Races/> : null}
+                        <Races/>
                     </Route>
                     <Route path='/races/:id'>
-                        {token != '' ? <RaceInfo/> : null}
+                        <RaceInfo/>
                     </Route>
-                    <Route path='/table' component={ResultsTable} />
+                    </Switch>
+                    <Route path='/table'>
+                        <ResultsTable/>
+                    </Route>
                     <Route path='/tracks' component={Tracks}/>
                     <Route path ='/auth'>
                         {token != '' ? <Redirect to="/"/> : <AuthAdmin token={token} setToken = {setToken}/>}

@@ -10,6 +10,10 @@ namespace NASCAR_Backend.Mapping
         {
             CreateMap<Manufacturer, ManufacturerVM>();
             CreateMap<Team, TeamVM>();
+            CreateMap<Result, ResultWithActualNumbersVM>();
+            CreateMap<Pilot, PilotResultVM>();
+            CreateMap<Manufacturer, ManufacturerResultVM>();
+            CreateMap<Team,TeamResultVM>();
         }
     }
 }

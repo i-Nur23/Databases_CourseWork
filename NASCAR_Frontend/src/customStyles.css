@@ -50,3 +50,23 @@ footer.to-bottom{
     bottom: 15%;
     left: 2%;
 }
+
+ul#table-info{
+    list-style-type: square;
+}
+
+li#in-playoff-zone{
+    color : green;
+}
+
+li#out-playoff-zone{
+    color:  red;
+}
+
+li#elemenated-from-playoff{
+    color: yellow;
+}
+
+li#four-champ{
+    color: #6f42c1;
+}

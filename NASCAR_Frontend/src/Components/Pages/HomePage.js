@@ -193,7 +193,6 @@ export class HomePage extends Component {
 
     async populateHome() {
         const response = await fetch('api');
-        console.log(response);
         const data = await response.json();
         this.setState({ top5Pilots: data.pilots, nearestStage: data.nearestStage, loading: false });
     }

@@ -10,6 +10,6 @@ namespace NASCAR_Backend.Services.ModelsVM
         public string Founder { get; set; }
         public int ManufacturerId { get; set; }
         public virtual Manufacturer Manufacturer { get; set; }
-        public int Points { get; set; } 
+        public int Points { get; set; }
     }
 }

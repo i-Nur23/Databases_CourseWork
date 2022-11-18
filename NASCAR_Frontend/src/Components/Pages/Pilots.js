@@ -41,8 +41,6 @@ const Participants = withRouter((props)=>{
     },[]);
 
     const getNormalFormOfYear = (date) => {
-        console.log(date)
-        console.log(typeof(date))
         var year = date.substr(0,4);
         var mounth = date.substr(5,2);
         var day = date.substr(8,2);
