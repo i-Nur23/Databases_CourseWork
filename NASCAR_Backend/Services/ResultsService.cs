@@ -82,10 +82,10 @@ namespace NASCAR_Backend.Services
 
                 switch (currentNumOfStage)
                 {
-                    case 26:
-                    case 29:
-                    case 32:
-                    case 35:
+                    case 27:
+                    case 30:
+                    case 33:
+                    case 36:
                         winsAtCurrentRound.Clear();
                         break;
                     default:
@@ -164,7 +164,7 @@ namespace NASCAR_Backend.Services
                 var pilotStages = await _resultsRepository.GetPilotsResults(p_id);
                 var pilotRes = _mapper.Map<PilotResultVM>(pilot);
 
-                if (winsAtCurrentRound.ContainsKey(p_id)){
+                if (winsAtCurrentRound.ContainsKey(p_id) || (await CurrentRound()) == 0 && pilot.Wins > 0){
                     pilotRes.HasWonInThisPlayOffRound = true;
                 }
 

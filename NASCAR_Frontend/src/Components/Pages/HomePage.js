@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { UncontrolledCarousel, List } from 'reactstrap';
-//import { Carousel } from 'react-responsive-carousel';
 export class HomePage extends Component {
     static displayName = HomePage.name;
 

@@ -8,7 +8,6 @@ import Tracks from './Components/Pages/Tracks';
 import AuthAdmin  from './Components/Pages/AuthAdmin';
 import AddPilotsInResult from './Components/Pages/AddResult';
 import AddPilot from './Components/Pages/AddPilot';
-import ChangeResult from './Components/Pages/ChangeResult';
 import PilotInfoChanger from './Components/Pages/PilotInfoChanger';
 import ChangeNumber from './Components/Pages/ChangeNumber';
 import Races from './Components/Pages/Races';
@@ -61,9 +60,6 @@ import RaceInfo from './Components/Pages/RaceInfo';
                     </Route>
                     <Route path='/addpilot'>
                         {token != '' ? <AddPilot/> : null}
-                    </Route>
-                    <Route path='/changeresult'>
-                        {token != '' ? <ChangeResult/> : null}
                     </Route>
                     <Route path='/changepilotinfo'>
                         {token != '' ? <PilotInfoChanger/> : null}

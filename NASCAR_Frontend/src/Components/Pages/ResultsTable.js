@@ -30,12 +30,18 @@ const ResultsTable = () => {
         )();
     }, []);
 
+    const DrawFlag = () => {
+        return(
+            <img src='\Images\ChequredFlag.png' style={{height:'20px'}}/>
+        )
+    }
+
     const DrawForRegular = (props) => {
         var index = props.index;
         var pilot = props.pilot;
         if (index <= 15){
             return(<tr key={pilot.id} style={{backgroundColor:"rgba(4, 139, 22, 0.1)"}}>
-                <th>{pilot.name} {pilot.surName}</th>
+                <th>{pilot.name} {pilot.surName} {pilot.hasWonInThisPlayOffRound ? <DrawFlag/> : null} </th>
                 {pilot.pilotResults.map( (place,index) => (
                     <th key={index} className='text-center align-middle'>
                         {place == 0 ? " - " : place}
@@ -47,7 +53,7 @@ const ResultsTable = () => {
         }
 
         return(<tr key={pilot.id}>
-            <th>{pilot.name} {pilot.surName}</th>
+            <th>{pilot.name} {pilot.surName} {pilot.hasWonInThisPlayOffRound ? <DrawFlag/> : null}</th>
             {pilot.pilotResults.map( (place,index) => (
                 <th key={index} className='text-center align-middle'>
                     {place == 0 ? " - " : place}
@@ -63,7 +69,7 @@ const ResultsTable = () => {
         var pilot = props.pilot;
         if (index <= 11){
             return(<tr key={pilot.id} style={{backgroundColor:"rgba(4, 139, 22, 0.1)"}}>
-                <th>{pilot.name} {pilot.surName}</th>
+                <th>{pilot.name} {pilot.surName} {pilot.hasWonInThisPlayOffRound ? <DrawFlag/> : null}</th>
                 {pilot.pilotResults.map( (place,index) => (
                     <th key={index} className='text-center align-middle'>
                         {place == 0 ? " - " : place}
@@ -75,7 +81,7 @@ const ResultsTable = () => {
 
         } else if (index <= 15){
             return(<tr key={pilot.id} style={{backgroundColor:"rgba(151, 18, 18, 0.1)"}}>
-                <th>{pilot.name} {pilot.surName}</th>
+                <th>{pilot.name} {pilot.surName} {pilot.hasWonInThisPlayOffRound ? <DrawFlag/> : null}</th>
                 {pilot.pilotResults.map( (place,index) => (
                     <th key={index} className='text-center align-middle'>
                         {place == 0 ? " - " : place}
@@ -103,7 +109,7 @@ const ResultsTable = () => {
         var pilot = props.pilot;
         if (index <= 7){
             return(<tr key={pilot.id} style={{backgroundColor:"rgba(4, 139, 22, 0.1)"}}>
-                <th>{pilot.name} {pilot.surName}</th>
+                <th>{pilot.name} {pilot.surName} {pilot.hasWonInThisPlayOffRound ? <DrawFlag/> : null}</th>
                 {pilot.pilotResults.map( (place,index) => (
                     <th key={index} className='text-center align-middle'>
                         {place == 0 ? " - " : place}
@@ -115,8 +121,19 @@ const ResultsTable = () => {
 
         } else if (index <= 11){
             return(<tr key={pilot.id} style={{backgroundColor:"rgba(151, 18, 18, 0.1)"}}>
-                <th>{pilot.name} {pilot.surName}</th>
+                <th>{pilot.name} {pilot.surName} {pilot.hasWonInThisPlayOffRound ? <DrawFlag/> : null}</th>
                 {pilot.pilotResults.map( (place,index) => (
+                    <th key={index} className='text-center align-middle'>
+                        {place == 0 ? " - " : place}
+                    </th>
+                ))}
+                <th>{pilot.wins}</th>
+                <th>{pilot.points}</th>
+            </tr>)
+        } else if (index <= 15) {
+            return (<tr key={pilot.id} style={{backgroundColor: "rgba(201, 204, 0, 0.1)"}}>
+                <th>{pilot.name} {pilot.surName}</th>
+                {pilot.pilotResults.map((place, index) => (
                     <th key={index} className='text-center align-middle'>
                         {place == 0 ? " - " : place}
                     </th>
@@ -126,9 +143,9 @@ const ResultsTable = () => {
             </tr>)
         }
 
-        return(<tr key={pilot.id} style={{backgroundColor:"rgba(201, 204, 0, 0.1)"}}>
+        return (<tr key={pilot.id}>
             <th>{pilot.name} {pilot.surName}</th>
-            {pilot.pilotResults.map( (place,index) => (
+            {pilot.pilotResults.map((place, index) => (
                 <th key={index} className='text-center align-middle'>
                     {place == 0 ? " - " : place}
                 </th>
@@ -164,9 +181,20 @@ const ResultsTable = () => {
                 <th>{pilot.wins}</th>
                 <th>{pilot.points}</th>
             </tr>)
+        } else if (index <= 15) {
+            return(<tr key={pilot.id} style={{backgroundColor:"rgba(201, 204, 0, 0.1)"}}>
+                <th>{pilot.name} {pilot.surName}</th>
+                {pilot.pilotResults.map( (place,index) => (
+                    <th key={index} className='text-center align-middle'>
+                        {place == 0 ? " - " : place}
+                    </th>
+                ))}
+                <th>{pilot.wins}</th>
+                <th>{pilot.points}</th>
+            </tr>)
         }
 
-        return(<tr key={pilot.id} style={{backgroundColor:"rgba(201, 204, 0, 0.1)"}}>
+        return(<tr key={pilot.id} >
             <th>{pilot.name} {pilot.surName}</th>
             {pilot.pilotResults.map( (place,index) => (
                 <th key={index} className='text-center align-middle'>
@@ -192,11 +220,21 @@ const ResultsTable = () => {
                 <th>{pilot.wins}</th>
                 <th>{pilot.points}</th>
             </tr>)
+        } else if (index <= 15) {
+            return (<tr key={pilot.id} style={{backgroundColor: "rgba(201, 204, 0, 0.1)"}}>
+                <th>{pilot.name} {pilot.surName}</th>
+                {pilot.pilotResults.map((place, index) => (
+                    <th key={index} className='text-center align-middle'>
+                        {place == 0 ? " - " : place}
+                    </th>
+                ))}
+                <th>{pilot.wins}</th>
+                <th>{pilot.points}</th>
+            </tr>)
         }
-
-        return(<tr key={pilot.id} style={{backgroundColor:"rgba(201, 204, 0, 0.1)"}}>
+        return (<tr key={pilot.id}>
             <th>{pilot.name} {pilot.surName}</th>
-            {pilot.pilotResults.map( (place,index) => (
+            {pilot.pilotResults.map((place, index) => (
                 <th key={index} className='text-center align-middle'>
                     {place == 0 ? " - " : place}
                 </th>
@@ -204,6 +242,7 @@ const ResultsTable = () => {
             <th>{pilot.wins}</th>
             <th>{pilot.points}</th>
         </tr>)
+
     }
 
     const DrawRows = (props) => {

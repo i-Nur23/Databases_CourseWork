@@ -6,12 +6,10 @@ function AddPilotsInResult () {
     const [pilots, setPilots] = useState([]);
     const [toFewPilots, setToFewFilots] = useState(false);
     const [isContinue, setContinue] = useState(false);
-    const [checkedState, setCheckedState] = useState(
-        //new Array(50).fill(false)
-
-    );
-    const [selectAllChecked, setAllChecked] = useState(false)
-    const [chosenPilots, setChosenPilots] = useState(new Array())
+    const [checkedState, setCheckedState] = useState();
+    const [isChampEnded, setIsChampEnded] = useState(false);
+    const [selectAllChecked, setAllChecked] = useState(false);
+    const [chosenPilots, setChosenPilots] = useState(new Array());
     
 
     useEffect(() => {
@@ -28,6 +26,9 @@ function AddPilotsInResult () {
 
                 setPilots(content.pilots);
                 setStage(content.stage);
+                if (content.stage == null){
+                    setIsChampEnded(true);
+                }
                 setCheckedState(new Array(content.pilots.length).fill(false));
             }
         )();
@@ -209,25 +210,31 @@ function AddPilotsInResult () {
                 </li>
             </ul>
             </div>
+    if (!isChampEnded){
+        return(
+            <div>
+                <h3><center>Следующая гонка:</center></h3>
+                <h4><center>Этап №{stage.stageNumber}: {stage.name}</center></h4>
+                <br/>
+                <h3><center>Выберете участников:</center></h3>
 
-    return(
+                <form>
+                    <GetPilots/>
+                </form>
+
+                <center>
+                <button className='btn btn-info w-50' onClick={handleContinue}>
+                    Продолжить
+                </button>
+                {toFewPilots ? <p style={{color:'red'}}>Выберете хотя бы 10 пилотов</p> : null}
+                </center>
+                {isContinue ? <ConfigureResults checkedState={checkedState}/> : null}
+            </div>
+    )}
+
+    return (
         <div>
-            <h3><center>Следующая гонка:</center></h3>
-            <h4><center>Этап №{stage.stageNumber}: {stage.name}</center></h4>
-            <br/>
-            <h3><center>Выберете участников:</center></h3>
-
-            <form>
-                <GetPilots/>
-            </form>
-
-            <center>
-            <button className='btn btn-info w-50' onClick={handleContinue}>
-                Продолжить
-            </button>
-            {toFewPilots ? <p style={{color:'red'}}>Выберете хотя бы 10 пилотов</p> : null}
-            </center>
-            {isContinue ? <ConfigureResults checkedState={checkedState}/> : null}
+            <h3>Чемпионат завершен</h3>
         </div>
     )
 }

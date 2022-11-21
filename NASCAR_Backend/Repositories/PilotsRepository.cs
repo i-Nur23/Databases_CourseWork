@@ -8,13 +8,67 @@ namespace NASCAR_Backend.Repositories
     public class PilotsRepository
     {
         private readonly NascarDbContext _context;
-        private readonly Dictionary<int, int> PlayOffPointsForTopTen = new Dictionary<int, int>();
-        public HashSet<int> PilotsWonInPlayOff = new HashSet<int>();
-
 
         public PilotsRepository(NascarDbContext context)
         {
             _context = context;
+        }
+
+
+        public async Task<HashSet<int>> GetPilotsWonInCurrentRound(int currentStage)
+        {
+            var set = new HashSet<int>();
+
+            var downLimit = 27;
+            var upLimit = 29;
+
+            switch (true)
+            {
+                case true when currentStage >= 30 && currentStage <= 32:
+                    downLimit = 30;
+                    upLimit = 32;
+                    break;
+                case true when currentStage >= 33 && currentStage <= 35:
+                    downLimit = 33;
+                    upLimit = 35;
+                    break;
+                default:
+                    break;
+            }
+
+            set = _context.Results
+                .Where(x => x.StageID >= downLimit && x.StageID <= upLimit)
+                .Where(x => x.Pilot.PlayOffStatus)
+                .Select(x => x.PilotID)
+                .ToHashSet();
+
+            return set;
+        }
+
+        public async Task<Dictionary<int, int>> GetDictinaryOfExtraPointsForTopTen()
+        {
+            var dict = new Dictionary<int, int>();
+
+            var sortedPilotsList = _context.Results
+                .GroupBy(x => new {pilot = x.Pilot, points = _context.Results.Sum(x => x.Pilot.Points) })
+                .OrderByDescending(x => x.Key.pilot.Wins)
+                .ThenByDescending(x => x.Key.pilot.Points)
+                .Take(10)
+                .Select(x => x.Key.pilot)
+                .ToList();
+
+            dict.Add(sortedPilotsList[0].Id, 15);
+            dict.Add(sortedPilotsList[1].Id, 10);
+            dict.Add(sortedPilotsList[2].Id, 8);
+            dict.Add(sortedPilotsList[3].Id, 7);
+            dict.Add(sortedPilotsList[4].Id, 6);
+            dict.Add(sortedPilotsList[5].Id, 5);
+            dict.Add(sortedPilotsList[6].Id, 4);
+            dict.Add(sortedPilotsList[7].Id, 3);
+            dict.Add(sortedPilotsList[8].Id, 2);
+            dict.Add(sortedPilotsList[9].Id, 1);
+
+            return dict;
         }
 
         public async Task<IEnumerable<Pilot>> GetParticipatingPilots()
@@ -42,7 +96,7 @@ namespace NASCAR_Backend.Repositories
 
         public async Task SetPilotspoints(List<Result> results)
         {
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
                 //if (results[0].StageID != 26 || results[0].StageID != 29 || results[0].StageID != 32 || results[0].StageID != 35)
                 //{
@@ -54,10 +108,10 @@ namespace NASCAR_Backend.Repositories
                         {
                             pilot.Wins += 1;
                             points = 40;
-                            if (pilot.PlayOffStatus)
+                            /*if (pilot.PlayOffStatus)
                             {
                                 PilotsWonInPlayOff.Add(pilot.Id);
-                            }
+                            }*/
                         }
                         else
                         {
@@ -68,6 +122,8 @@ namespace NASCAR_Backend.Repositories
                         _context.Pilots.Update(pilot);
                         _context.SaveChanges();
                     }
+
+                var PlayOffPointsForTopTen = await GetDictinaryOfExtraPointsForTopTen();
                 //}
                 if (results[0].StageID == 26)
                 {
@@ -75,18 +131,6 @@ namespace NASCAR_Backend.Repositories
                         .OrderByDescending(x => x.Wins)
                         .ThenByDescending(x => x.Points)
                         .ToList();
-
-
-                    PlayOffPointsForTopTen.Add(pilots[0].Id, 15);
-                    PlayOffPointsForTopTen.Add(pilots[1].Id, 10);
-                    PlayOffPointsForTopTen.Add(pilots[2].Id, 8);
-                    PlayOffPointsForTopTen.Add(pilots[3].Id, 7);
-                    PlayOffPointsForTopTen.Add(pilots[4].Id, 6);
-                    PlayOffPointsForTopTen.Add(pilots[5].Id, 5);
-                    PlayOffPointsForTopTen.Add(pilots[6].Id, 4);
-                    PlayOffPointsForTopTen.Add(pilots[7].Id, 3);
-                    PlayOffPointsForTopTen.Add(pilots[8].Id, 2);
-                    PlayOffPointsForTopTen.Add(pilots[9].Id, 1);
 
                     for (int i = 0; i < 16; i++)
                     {
@@ -97,21 +141,22 @@ namespace NASCAR_Backend.Repositories
                     _context.Pilots.UpdateRange(pilots);
                     _context.SaveChanges();
                 }
+
                 else if (results[0].StageID == 29) 
                 {
+                    var PilotsWonInPlayOff = await GetPilotsWonInCurrentRound(29);
+
                     var pilots = _context.Pilots
                         .Where(pilot => pilot.PlayOffStatus)
-                        .OrderByDescending(x => x.Wins)
-                        .ThenByDescending(x => x.Points)
+                        .OrderByDescending(x => x.Points)
                         .ToList();
 
                     pilots.RemoveAll(pilot => PilotsWonInPlayOff.Contains(pilot.Id));
+
                     foreach (var item in PilotsWonInPlayOff)
                     {
                         pilots.Insert(0, _context.Pilots.FirstOrDefault(p => p.Id == item));
                     }
-
-                    PilotsWonInPlayOff.Clear();
 
                     for (int i = 0; i < 12; i++)
                     {
@@ -122,25 +167,26 @@ namespace NASCAR_Backend.Repositories
                     {
                         pilots[i].PlayOffStatus = false;
                     }
+
                     _context.Pilots.UpdateRange(pilots);
                     _context.SaveChanges();
                 }
 
                 else if (results[0].StageID == 32)
                 {
+                    var PilotsWonInPlayOff = await GetPilotsWonInCurrentRound(32);
+
                     var pilots = _context.Pilots
                         .Where(pilot => pilot.PlayOffStatus)
-                        .OrderByDescending(x => x.Wins)
-                        .ThenByDescending(x => x.Points)
+                        .OrderByDescending(x => x.Points)
                         .ToList();
 
                     pilots.RemoveAll(pilot => PilotsWonInPlayOff.Contains(pilot.Id));
+
                     foreach (var item in PilotsWonInPlayOff)
                     {
                         pilots.Insert(0, _context.Pilots.FirstOrDefault(p => p.Id == item));
                     }
-
-                    PilotsWonInPlayOff.Clear();
 
                     for (int i = 0; i < 8; i++)
                     {
@@ -157,19 +203,19 @@ namespace NASCAR_Backend.Repositories
 
                 else if (results[0].StageID == 35)
                 {
+                    var PilotsWonInPlayOff = await GetPilotsWonInCurrentRound(35);
+
                     var pilots = _context.Pilots
                         .Where(pilot => pilot.PlayOffStatus)
-                        .OrderByDescending(x => x.Wins)
-                        .ThenByDescending(x => x.Points)
+                        .OrderByDescending(x => x.Points)
                         .ToList();
 
                     pilots.RemoveAll(pilot => PilotsWonInPlayOff.Contains(pilot.Id));
+
                     foreach (var item in PilotsWonInPlayOff)
                     {
                         pilots.Insert(0, _context.Pilots.FirstOrDefault(p => p.Id == item));
                     }
-
-                    PilotsWonInPlayOff.Clear();
 
                     for (int i = 0; i < 4; i++)
                     {
@@ -182,7 +228,7 @@ namespace NASCAR_Backend.Repositories
                     }
                     _context.Pilots.UpdateRange(pilots);
                     _context.SaveChanges();
-                }
+                } 
 
             });
         }

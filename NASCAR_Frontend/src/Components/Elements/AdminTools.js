@@ -28,7 +28,6 @@ function AdminTools(props){
                     <strong>
                     <ul class="list-group list-group-flush">
                     <li class="list-group-item p-3"><a className='black-ref' role='button' href='/addresult'>Добавить результат</a></li>
-                    {/*<li class="list-group-item p-3"><a className='black-ref' role='button' href='/changeresult'>Изменить результат</a></li>*/}
                     <li class="list-group-item p-3"><a className='black-ref' role='button' href='/addpilot'>Добавить нового пилота</a></li>
                     <li class="list-group-item p-3"><a className='black-ref' role='button' href='/changenum'>Замена машины</a></li>
                     <li class="list-group-item p-3"><a className='black-ref' role='button' href='/changepilotinfo'>Изменить информацию о пилоте</a></li>
