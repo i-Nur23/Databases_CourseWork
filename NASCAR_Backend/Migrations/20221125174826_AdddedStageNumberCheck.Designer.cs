@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NASCAR_Backend.Context;
 
@@ -11,9 +12,11 @@ using NASCAR_Backend.Context;
 namespace NASCARBackend.Migrations
 {
     [DbContext(typeof(NascarDbContext))]
-    partial class NascarDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221125174826_AdddedStageNumberCheck")]
+    partial class AdddedStageNumberCheck
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,7 +61,7 @@ namespace NASCARBackend.Migrations
 
                             t.HasCheckConstraint("OldNumber", "OldNumber >= 0 AND OldNumber <= 99");
 
-                            t.HasCheckConstraint("StageNumber", "StageNumber >= 1 AND StageNumber <= 36");
+                            t.HasCheckConstraint("StageNumber", "StageNumber >= 0 AND StageNumber <= 36");
                         });
                 });
 
@@ -222,7 +225,11 @@ namespace NASCARBackend.Migrations
 
                     b.HasIndex("TrackID");
 
-                    b.ToTable("STAGE");
+                    b.ToTable("STAGE", t =>
+                        {
+                            t.HasCheckConstraint("StageNumber", "StageNumber >= 1 AND StageNumber <= 36")
+                                .HasName("StageNumber1");
+                        });
                 });
 
             modelBuilder.Entity("NASCAR_Backend.Models.Team", b =>

@@ -8,7 +8,7 @@ namespace NASCAR_Backend.Services
 {
     public class ResultsService
     {
-        private Dictionary<int, int> winsAtCurrentRound = new Dictionary<int, int>();
+        //private Dictionary<int, int> winsAtCurrentRound = new Dictionary<int, int>();
 
 
         private readonly ResultsRepository _resultsRepository;
@@ -35,6 +35,7 @@ namespace NASCAR_Backend.Services
             _manufacturerRepository = manufacturersRepository;
             _mapper = mapper;
         }
+
 
         public async Task AddResultsAsync(PlaceInfo[] placeInfo)
         {
@@ -71,29 +72,8 @@ namespace NASCAR_Backend.Services
                     });
                 }
 
-                if (winsAtCurrentRound.ContainsKey(placeInfo[0].id))
-                {
-                    winsAtCurrentRound[placeInfo[0].id]++; 
-                }
-                else 
-                { 
-                    winsAtCurrentRound.Add(placeInfo[0].id, 1); 
-                }
-
-                switch (currentNumOfStage)
-                {
-                    case 27:
-                    case 30:
-                    case 33:
-                    case 36:
-                        winsAtCurrentRound.Clear();
-                        break;
-                    default:
-                        break;
-                }
-
-                await _resultsRepository.AddResult(resultsProtocol);
-                await _pilotsRepository.SetPilotspoints(resultsProtocol);
+                _resultsRepository.AddResult(resultsProtocol);
+                _pilotsRepository.SetPilotspoints(resultsProtocol);
             });
         }
 
@@ -136,16 +116,19 @@ namespace NASCAR_Backend.Services
             {
                 var listOfPilots = await _pilotsRepository.GetPilotsByPoints();
                 var resultList = new List<int>();
-                foreach (var pilot in winsAtCurrentRound
-                    .OrderBy(x => x.Value)
-                    )
+
+                var winnersAtCurrentRound = await _pilotsRepository.GetPilotsWonInCurrentRound(stageNum);
+                foreach (var pilot in winnersAtCurrentRound)
                 {
-                    resultList.Add(pilot.Key);
+                    resultList.Add(pilot);
                 }
 
                 resultList = resultList.Concat(listOfPilots
-                                                        .Where(x => ! winsAtCurrentRound.ContainsKey(x.Id))
-                                                        .Select(x => x.Id)).ToList();
+                                                        .Where(x => !winnersAtCurrentRound.Contains(x.Id))
+                                                        .Select(x => x.Id))
+                                                        .ToList();
+
+                resultList.OrderByDescending(x =>  _pilotsRepository.GetById(x).Result.Points);                 
 
                 return resultList;
             }
@@ -163,8 +146,9 @@ namespace NASCAR_Backend.Services
                 var pilot = allPilots.FirstOrDefault(x => x.Id == p_id);
                 var pilotStages = await _resultsRepository.GetPilotsResults(p_id);
                 var pilotRes = _mapper.Map<PilotResultVM>(pilot);
+                var winnersAtCurrentRound = await _pilotsRepository.GetPilotsWonInCurrentRound(await _resultsRepository.GetNumberOfCurrentStageAsync());
 
-                if (winsAtCurrentRound.ContainsKey(p_id) || (await CurrentRound()) == 0 && pilot.Wins > 0){
+                if (winnersAtCurrentRound.Contains(p_id) || (await CurrentRound()) == 0 && pilot.Wins > 0){
                     pilotRes.HasWonInThisPlayOffRound = true;
                 }
 

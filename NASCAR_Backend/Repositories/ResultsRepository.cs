@@ -13,29 +13,6 @@ namespace NASCAR_Backend.Repositories
             _context = context;
         }
 
-
-
-        /*public async Task<int> GetWinsInThisRound (int currentStageNumber, Pilot pilot)
-        {
-            switch (true)
-            {
-                case true when currentStageNumber < 26:
-                    return pilot.Wins;
-
-                case true when currentStageNumber >= 26 && currentStageNumber < 29:
-                    return winsAtTop16[pilot];
-
-                case true when currentStageNumber >= 29 && currentStageNumber < 32:
-                    return winsAtTop12[pilot];
-
-                case true when currentStageNumber >= 32 && currentStageNumber < 35:
-                    return winsAtTop8[pilot];
-
-                default:
-                    return 0;
-            }
-        }*/
-
         public async Task<int> GetNumberOfCurrentStageAsync()
         {
             return _context.Results.Max(u => u.StageID);
@@ -74,13 +51,10 @@ namespace NASCAR_Backend.Repositories
             return await GetNumberOfCurrentStageAsync() + 1;
         }
 
-        public async Task AddResult(List<Result> results)
+        public void AddResult(List<Result> results)
         {
-            await Task.Run(async () =>
-            {
-                await _context.Results.AddRangeAsync(results);
+                _context.Results.AddRange(results);
                 _context.SaveChanges();
-            });
         }
 
         public async Task<IEnumerable<Result>> GetByStageID(int stageId)
@@ -94,39 +68,6 @@ namespace NASCAR_Backend.Repositories
                 .Include(r => r.Stage)
                 .Include(r => r.Pilot.Team);
         }
-
-        /*public async Task<int[,]> GetPilotsTable()
-        {
-            var pilotsCount = await _context.Pilots.CountAsync();
-            const int stagesCount = 36;
-
-            var arrayOfResults = new int[pilotsCount, stagesCount];
-
-            foreach (var res in _context.Results)
-            {
-                arrayOfResults[ await PilotPlace(res.PilotID), res.StageID] = res.Place;
-            }
-
-            return arrayOfResults;
-        }*/
-
-        /*public async Task<int> PilotPlace(int id)
-        {
-            var currentStageNum = await GetNumberOfCurrentStageAsync();
-
-            var pilotToFind = await _context.Pilots.FirstOrDefaultAsync(x => x.Id == id);
-
-            var currentRound = await GetCurrentRoundsCount(currentStageNum);
-
-            if (pilotToFind.PlayOffStatus)
-            {
-                return _context.Pilots
-                .OrderByDescending(x => x.Wins)
-                .ThenByDescending(x => x.Points)
-                .ToList()
-                .IndexOf(pilotToFind);
-            }
-        }*/
 
         public async Task<IEnumerable<Result>> GetAllResults()
         {

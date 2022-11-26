@@ -44,7 +44,7 @@ namespace NASCAR_Backend.Context
 
             modelBuilder.Entity<Change>().HasCheckConstraint("OldNumber", "OldNumber >= 0 AND OldNumber <= 99");
             modelBuilder.Entity<Change>().HasCheckConstraint("NewNumber", "NewNumber >= 0 AND NewNumber <= 99");
-            modelBuilder.Entity<Change>().HasCheckConstraint("StageNumber", "StageNumber >= 0 AND StageNumber <= 36");
+            modelBuilder.Entity<Change>().HasCheckConstraint("StageNumber", "StageNumber >= 1 AND StageNumber <= 36");
 
             modelBuilder.Entity<Result>().HasKey(u => new { u.PilotID, u.StageID });
             modelBuilder.Entity<Result>().HasCheckConstraint("Place", "Place >= 1");
