@@ -8,8 +8,6 @@ namespace NASCAR_Backend.Services
 {
     public class ResultsService
     {
-        //private Dictionary<int, int> winsAtCurrentRound = new Dictionary<int, int>();
-
 
         private readonly ResultsRepository _resultsRepository;
         private readonly StagesRepository _stagesRepository;
@@ -18,6 +16,7 @@ namespace NASCAR_Backend.Services
         private readonly TeamsRepository _teamsRepository;
         private readonly ManufacturersRepository _manufacturerRepository;
         private readonly IMapper _mapper;
+        
         public ResultsService(
                                 ResultsRepository resultsRepository, 
                                 StagesRepository stagesRepository, 

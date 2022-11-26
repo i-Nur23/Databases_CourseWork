@@ -66,22 +66,25 @@ function AddPilot(){
 
     const checkSubmitForm = async event => {
         var inputs = document.getElementsByClassName('required');
+        var isAllValid = true; 
         Array.prototype.slice.call(inputs)
             .forEach((input) => {
                 if (input.value === ''){
+                    isAllValid = false;
                     input.classList.add("is-invalid")
                 }
             });
-
-        await addPilot();
+        if (isAllValid){
+            await addPilot();   
+        }
     }
 
     const isLatinic = (key) => {
-        return (/^[A-Z]+$/i.test(key) || key === '')
+        return (/^[A-Z]+$/i.test(key) || key === '' || key == ' ' || key=='-')
     }
 
     const isCyrillic = (key) => {
-        return (/^[А-Я]+$/i.test(key) || key === '')
+        return (/^[А-Я]+$/i.test(key) || key === '' || key == ' ' || key=='-')
     }
 
     const is16 = (date) => {

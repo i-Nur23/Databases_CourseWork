@@ -8,11 +8,14 @@ namespace NASCAR_Backend.Services
     {
         private readonly PilotsRepository _pilotsRepository;
         private readonly ChangesRepository _changesRepository;
+        private readonly ResultsRepository _resultsRepository;
 
-        public PilotsService(PilotsRepository repository, ChangesRepository changesRepository)
+        public PilotsService(PilotsRepository repository, ChangesRepository changesRepository, 
+            ResultsRepository resultsRepository)
         {
             _pilotsRepository = repository;
             _changesRepository = changesRepository;
+            _resultsRepository = resultsRepository;
         }
 
         public async Task<IEnumerable<Pilot>> GetParticipatingPilots()
@@ -45,7 +48,15 @@ namespace NASCAR_Backend.Services
 
         public async Task<IEnumerable<Pilot>> GetTopFivePilotsAsync()
         {
-            var pilots = await _pilotsRepository.GetPilotsByOrder();
+            var currentRound = await _resultsRepository.GetCurrentRoundsCount();
+            IEnumerable<Pilot> pilots;
+            if (currentRound == 0)
+            {
+                pilots = await _pilotsRepository.GetPilotsByOrder();
+                return pilots.Take(5);
+            }
+            
+            pilots = await _pilotsRepository.GetPilotsByPoints();
             return pilots.Take(5);
         }
 
