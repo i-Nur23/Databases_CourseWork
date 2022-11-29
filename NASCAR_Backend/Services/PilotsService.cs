@@ -1,6 +1,8 @@
-﻿using NASCAR_Backend.Repositories;
+﻿using AutoMapper;
+using NASCAR_Backend.Repositories;
 using NASCAR_Backend.Models;
 using NASCAR_Backend.Controllers.Jsons;
+using NASCAR_Backend.Services.ModelsVM;
 
 namespace NASCAR_Backend.Services
 {
@@ -9,13 +11,15 @@ namespace NASCAR_Backend.Services
         private readonly PilotsRepository _pilotsRepository;
         private readonly ChangesRepository _changesRepository;
         private readonly ResultsRepository _resultsRepository;
+        private readonly IMapper _mapper;
 
         public PilotsService(PilotsRepository repository, ChangesRepository changesRepository, 
-            ResultsRepository resultsRepository)
+            ResultsRepository resultsRepository, IMapper mapper)
         {
             _pilotsRepository = repository;
             _changesRepository = changesRepository;
             _resultsRepository = resultsRepository;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<Pilot>> GetParticipatingPilots()
@@ -32,6 +36,12 @@ namespace NASCAR_Backend.Services
         {
             var pilots = await _pilotsRepository.GetPilotsByOrder();
             return pilots;
+        }
+
+        public async Task<IEnumerable<BriefPilotInfo>> GetPilotBriefInfo()
+        {
+            var pilots = await _pilotsRepository.GetOnlyPilots();
+            return _mapper.Map<IEnumerable<BriefPilotInfo>>(pilots);
         }
 
         public async Task<Pilot> GetByIdAsync(int id)

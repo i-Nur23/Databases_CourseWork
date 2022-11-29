@@ -92,7 +92,7 @@ export class HomePage extends Component {
     }
 
     NextRace(){
-        if (this.state.nearestStage.stageNumber !== 37){
+        if (this.state.nearestStage !== null){
             return (
                 <div>
                 <center><h3>{this.state.nearestStage.name}</h3></center>
@@ -104,8 +104,8 @@ export class HomePage extends Component {
         } else {
             return (
                 <div>
-                    <center>Чемпионат окончен</center>
-                    <h4>Чемпион: <strong>{this.state.top5Pilots[0].name}  {this.state.top5Pilots[0].surName}</strong></h4>
+                    <center><h4>Чемпионат окончен</h4></center>
+                    <h6>Чемпион: <strong>{this.state.top5Pilots[0].name}  {this.state.top5Pilots[0].surname}</strong></h6>
                 </div>
             )
         }

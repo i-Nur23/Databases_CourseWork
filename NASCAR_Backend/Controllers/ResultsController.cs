@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NASCAR_Backend.Controllers.Jsons;
 using NASCAR_Backend.Services;
 
 namespace NASCAR_Backend.Controllers
@@ -9,9 +10,15 @@ namespace NASCAR_Backend.Controllers
     public class ResultsController : ControllerBase
     {
         private readonly ResultsService _resultsService;
-        public ResultsController(ResultsService resultsService)
+        private readonly PilotsService _pilotsService;
+        private readonly StagesService _stagesService;
+        
+        public ResultsController(ResultsService resultsService, PilotsService pilotsService,
+            StagesService stagesService)
         {
             _resultsService = resultsService;
+            _pilotsService = pilotsService;
+            _stagesService = stagesService;
         }
 
         [HttpGet("byStage/{stageId}")]
@@ -43,5 +50,34 @@ namespace NASCAR_Backend.Controllers
                 currentRound = await _resultsService.CurrentRound()
             }) ;
         }
+        
+        [HttpGet("add/show")]
+        public async Task<IActionResult> GetAllPilots()
+        {
+            return Ok(new
+            {
+                stage = await _stagesService.GetNearestStageAsync(),
+                pilots = await _pilotsService.GetParticipatingPilots()
+            }) ;
+        }
+        
+        [HttpGet("configure/show")]
+        public async Task<IActionResult> GetChoosenPilots([FromQuery] string[] pilots)
+        {
+            Console.WriteLine(pilots);
+            return Ok(new
+            {
+                pilots = await _pilotsService.GetPilotsToAddResult(pilots.Select(x => Convert.ToInt32(x)).ToList())
+            }) ;
+        }
+        
+        [HttpPost("configure")]
+        public async Task<IActionResult> Post([FromBody] PlaceJson.PlaceInfo[] Res) {
+            await _resultsService.AddResultsAsync(Res);
+
+            return Ok();
+        }
+        
+        
     }
 }

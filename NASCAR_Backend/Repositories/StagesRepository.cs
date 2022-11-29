@@ -18,9 +18,12 @@ namespace NASCAR_Backend.Repositories
 
         public async Task<Stage> GetNearestStage()
         {
+
             int nearestStagesID = await _resultsRepository.GetNumberOfNearestStageAsync();
 
-            var stage = await _context.Stages.FirstOrDefaultAsync(u => u.StageNumber == nearestStagesID);
+            var stage = await _context.Stages
+                .Include(x => x.Track)
+                .FirstOrDefaultAsync(u => u.StageNumber == nearestStagesID);
             return stage; 
         }
 
@@ -33,7 +36,9 @@ namespace NASCAR_Backend.Repositories
 
         public async Task<IEnumerable<Stage>> GetAllAsync()
         {
-            return await _context.Stages.ToListAsync();
+            return await _context.Stages
+                .Include(st => st.Track)
+                .ToListAsync();
         }
 
     }

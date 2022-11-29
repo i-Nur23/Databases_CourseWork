@@ -14,6 +14,7 @@ namespace NASCAR_Backend.Mapping
             CreateMap<Pilot, PilotResultVM>();
             CreateMap<Manufacturer, ManufacturerResultVM>();
             CreateMap<Team,TeamResultVM>();
+            CreateMap<Pilot, BriefPilotInfo>();
         }
     }
 }

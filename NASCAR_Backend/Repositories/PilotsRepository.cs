@@ -28,9 +28,9 @@ namespace NASCAR_Backend.Repositories
                     downLimit = 30;
                     upLimit = 32;
                     break;
-                case true when currentStage >= 33 && currentStage <= 35:
+                case true when currentStage >= 33 && currentStage <= 34:
                     downLimit = 33;
-                    upLimit = 35;
+                    upLimit = 34;
                     break;
                 default:
                     break;
@@ -276,6 +276,34 @@ namespace NASCAR_Backend.Repositories
         public async Task<int> GetPilotsCount()
         {
             return await _context.Pilots.CountAsync();
+        }
+
+        public async Task<IEnumerable<Pilot>> GetOnlyPilots()
+        {
+            _context.ChangeTracker.LazyLoadingEnabled = false;
+
+            return _context.Pilots.ToList();
+
+        }
+
+        public void DeletePilots(IEnumerable<int> pilotIds)
+        {
+            var pilotsToRemove = _context.Pilots
+                .Where(x => pilotIds.Contains(x.Id));
+            
+            _context.RemoveRange(pilotsToRemove);
+            _context.SaveChanges();
+        }
+        
+        public void Reset()
+        {
+            foreach (var pilot in _context.Pilots)
+            {
+                pilot.Points = pilot.Wins = 0;
+                pilot.PlayOffStatus = false;
+            }
+
+            _context.SaveChanges();
         }
 
     }

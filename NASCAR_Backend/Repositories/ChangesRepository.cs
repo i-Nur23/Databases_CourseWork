@@ -16,13 +16,20 @@ namespace NASCAR_Backend.Repositories
         }
 
         public async Task<int> GetCurrentNum(int id, int stageNumber)
-        {   var lastChange = await _context.Changes.FirstOrDefaultAsync(x => x.PilotID == id);
+        {
+            _context.ChangeTracker.LazyLoadingEnabled = false;
+            
+            var lastChange = await _context.Changes
+                .Include(x => x.Pilot)
+                .FirstOrDefaultAsync(x => x.PilotID == id);
+            
             if (lastChange == null)
             {
                 return -1;
             }
 
             var pilotsNumChangeAfter = await _context.Changes
+                .Include(x => x.Pilot)
                 .Where(x => x.StageNumber > stageNumber)
                 .OrderBy(x => x.StageNumber)
                 .FirstOrDefaultAsync(x => x.PilotID == id);
@@ -87,6 +94,12 @@ namespace NASCAR_Backend.Repositories
 
             _context.Changes.Add(change);
             _context.Pilots.Update( pilot );
+            _context.SaveChanges();
+        }
+
+        public void DeleteAll()
+        {
+            _context.Database.ExecuteSqlRaw("TRUNCATE TABLE CHANGE");
             _context.SaveChanges();
         }
     }

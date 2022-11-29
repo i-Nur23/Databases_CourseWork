@@ -20,7 +20,7 @@ function ConfigureResults(props){
 
                 const pilots = array.map(x => "pilots="+x).toString().replaceAll(',','&');
 
-                const response = await fetch('api/addresult/configure?'+pilots, {
+                const response = await fetch('api/results/configure/show?'+pilots, {
                     headers: {'Content-Type': 'application/json'},
                     credentials: 'include',
                 });
@@ -82,7 +82,7 @@ function ConfigureResults(props){
 
     const postRace = async () => {
         var pilotsResults = cardList.map(x => { return { id : x.id, order : x.order}});
-        await fetch('api/addresult/configure', {
+        await fetch('api/results/configure', {
             method: 'POST', headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',

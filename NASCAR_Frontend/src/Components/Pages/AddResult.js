@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import ConfigureResults from './ConfigureResults';
+import {Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
+import ResetChamp from "../Elements/ResetChamp";
 
 function AddPilotsInResult () {
     const [stage, setStage] = useState('');
@@ -17,7 +19,7 @@ function AddPilotsInResult () {
 
             async () => {
 
-                const response = await fetch('api/addresult', {
+                const response = await fetch('api/results/add/show', {
                     headers: {'Content-Type': 'application/json'},
                     credentials: 'include',
                 });
@@ -77,7 +79,7 @@ function AddPilotsInResult () {
     const GetChosenPilots = async (array) => {
         const pilots = array.map(x => "pilots="+x).toString().replaceAll(',','&');
 
-        const response = await fetch('api/addresult/configure?'+pilots, {
+        const response = await fetch('api/results/configure/show'+pilots, {
             headers: {'Content-Type': 'application/json'},
             credentials: 'include',
         });
@@ -99,41 +101,6 @@ function AddPilotsInResult () {
     }
 
 
-    const ConfigureResult = () => {
-        var inputs = document.getElementsByClassName('pilot-choice');
-        var array = []
-        for (let i = 0; i < checkedState.length; i++){
-            if (checkedState[i]){
-                array.push(inputs[i].getAttribute('id'))
-            }
-        }
-         GetChosenPilots(array)
-
-        return(
-            <div>
-                {cardList.sort(sortCards).map(card =>
-                    <div
-                        onDragStart={(e) => dragStartHandler(e,card)}
-                        onDragLeave={(e) => dragEndHandler(e)}
-                        onDragEnd={(e) => dragEndHandler(e)}
-                        onDragOver={(e) => dragOverHandler(e)}
-                        onDrop={(e) => dropHandler(e,card)}
-                        draggable={true}
-                        className="border rounded-2 m-2"
-                    >
-                        {card.text}
-                    </div>
-
-                )
-
-                }
-            </div>
-        )
-    
-    
-    }
-
-
     const handleClick = () => {
         setAllChecked(!selectAllChecked)
         const updatedCheckedState = checkedState.map((item) =>
@@ -141,14 +108,6 @@ function AddPilotsInResult () {
         );
 
         setCheckedState(updatedCheckedState);
-
-
-        /*var checkboxes = document.getElementsByClassName("form-check-input");
-        for (let i = 0; i < checkboxes.length; i++)
-        {
-            var cb = checkboxes[i];
-            cb.checked = event.target.checked
-        }*/
     }
 
     const handleClickList = (position) => {
@@ -233,9 +192,7 @@ function AddPilotsInResult () {
     )}
 
     return (
-        <div>
-            <h3>Чемпионат завершен</h3>
-        </div>
+        <ResetChamp/>
     )
 }
 

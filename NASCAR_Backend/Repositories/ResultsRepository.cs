@@ -15,6 +15,12 @@ namespace NASCAR_Backend.Repositories
 
         public async Task<int> GetNumberOfCurrentStageAsync()
         {
+            _context.ChangeTracker.LazyLoadingEnabled = false;
+
+            if (_context.Results.Count() == 0)
+            {
+                return 0;
+            }
             return _context.Results.Max(u => u.StageID);
         }
 
@@ -32,7 +38,7 @@ namespace NASCAR_Backend.Repositories
                 case true when currentStageNumber >= 32 && currentStageNumber < 35:
                     return 8;
 
-                case true when currentStageNumber == 36:
+                case true when currentStageNumber >= 35:
                     return 4;
 
                 default:
@@ -42,6 +48,8 @@ namespace NASCAR_Backend.Repositories
 
         public async Task<int> GetNumberOfNearestStageAsync ()
         {
+            _context.ChangeTracker.LazyLoadingEnabled = false;
+            
             var results = _context.Results;
             if (!results.Any())
             {
@@ -65,23 +73,24 @@ namespace NASCAR_Backend.Repositories
                 .Where(r => r.StageID == stageId)
                 .OrderBy(r => r.Place)
                 .Include(r => r.Pilot)
-                .Include(r => r.Stage)
-                .Include(r => r.Pilot.Team);
-        }
-
-        public async Task<IEnumerable<Result>> GetAllResults()
-        {
-            return await _context.Results
-                .OrderBy(r => r.StageID)
-                .ToListAsync();
+                    .ThenInclude(p => p.Team)
+                .Include(r => r.Stage);
         }
 
         public async Task<IEnumerable<Result>> GetPilotsResults(int id)
         {
+            _context.ChangeTracker.LazyLoadingEnabled = false;
+            
             return await _context.Results
                 .Where(r => r.PilotID == id)
                 .OrderBy(r => r.StageID)
                 .ToListAsync();
+        }
+
+        public void DeleteAll()
+        {
+            _context.Database.ExecuteSqlRaw("TRUNCATE TABLE RESULT");
+            _context.SaveChanges();
         }
 
 

@@ -11,6 +11,10 @@ namespace NASCAR_Backend.Services
             _repository = repository;
         }
 
+        public void DeleteAll()
+        {
+            _repository.DeleteAll();
+        }
 
     }
 }

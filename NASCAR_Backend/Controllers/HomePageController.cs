@@ -31,7 +31,15 @@ namespace NASCAR_Backend.Controllers
             }
 
             var nearestStage = await _stagesService.GetNearestStageAsync();
-            var stage = new NearestStageInfo(nearestStage.Name, nearestStage.EventsDate, nearestStage.Track.Name);
+            NearestStageInfo stage;
+            if (nearestStage == null)
+            {
+                stage = null;
+            }
+            else
+            {
+                stage = new NearestStageInfo(nearestStage.Name, nearestStage.EventsDate, nearestStage.Track.Name);    
+            }
 
             var json = new HomePageJson
             {

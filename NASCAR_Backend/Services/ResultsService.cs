@@ -193,6 +193,16 @@ namespace NASCAR_Backend.Services
             return await _resultsRepository.GetCurrentRoundsCount();
         }
 
+        public void DeleteAll(IEnumerable<int> pilotIds)
+        {
+            _resultsRepository.DeleteAll();
+
+            if (pilotIds.Count() != 0)
+            {
+                _pilotsRepository.DeletePilots(pilotIds);    
+            }
+            _pilotsRepository.Reset();
+        }
 
     }
 }

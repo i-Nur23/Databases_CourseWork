@@ -7,10 +7,6 @@ const ResultsTable = () => {
     const [manufacturers, setManufacturers] = useState([]);
     const [playOffPilotsCount, setPlayOffPilotsCount] = useState();
 
-    // yellow: rgba(201, 204, 0, 0.1);
-    // red: rgba(151, 18, 18, 0.1)
-    // green: rgba(4, 139, 22, 0.1)
-
     useEffect(() => {
         (
             async () => {
@@ -160,7 +156,7 @@ const ResultsTable = () => {
         var pilot = props.pilot;
         if (index <= 3){
             return(<tr key={pilot.id} style={{backgroundColor:"rgba(4, 139, 22, 0.1)"}}>
-                <th>{pilot.name} {pilot.surName}</th>
+                <th>{pilot.name} {pilot.surName} {pilot.hasWonInThisPlayOffRound ? <DrawFlag/> : null}</th>
                 {pilot.pilotResults.map( (place,index) => (
                     <th key={index} className='text-center align-middle'>
                         {place == 0 ? " - " : place}
@@ -211,7 +207,7 @@ const ResultsTable = () => {
         var pilot = props.pilot;
         if (index <= 3) {
             return (<tr key={pilot.id} style={{backgroundColor: "rgba(149, 0, 255, 0.1)"}}>
-                <th>{pilot.name} {pilot.surName}</th>
+                <th>{pilot.name} {pilot.surName} {pilot.hasWonInThisPlayOffRound ? <DrawFlag/> : null}</th>
                 {pilot.pilotResults.map((place, index) => (
                     <th key={index} className='text-center align-middle'>
                         {place == 0 ? " - " : place}
