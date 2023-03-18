@@ -16,7 +16,6 @@ namespace NASCAR_Backend.Repositories
         public async Task<IEnumerable<Team>> GetAllAsync()
         {
             return await _context.Teams.ToListAsync();
-        } 
-
+        }
     }
 }

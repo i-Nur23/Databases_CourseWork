@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
+	<PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -29,6 +29,12 @@
   <ItemGroup>
     <Compile Remove="Controllers\AddResultsController.cs" />
     <Compile Remove="Controllers\ConfigureResultsController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <ProjectReference Include="..\NASCAR_Frontend\Nascar_Frontend.esproj">
+		  <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+	  </ProjectReference>
   </ItemGroup>
 
 </Project>
