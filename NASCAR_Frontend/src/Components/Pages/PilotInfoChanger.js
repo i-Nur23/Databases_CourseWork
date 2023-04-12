@@ -86,9 +86,7 @@ const ChangeInfo = withRouter((props) => {
     useEffect(() => {
         (
             async () => {
-                console.log(props.match.params.id);
-                const path = 'https://localhost:3000/api/pilot/change/'+props.match.params.id
-                console.log(path);
+                const path = 'http://localhost:3000/api/pilot/change/'+props.match.params.id
                 const response = await fetch(path, {
                     method: 'GET',
                     headers: {'Content-Type': 'application/json'},
@@ -147,7 +145,7 @@ const ChangeInfo = withRouter((props) => {
             team : team
         }
 
-        var res = await fetch('https://localhost:3000/api/pilot/change/'+props.match.params.id, {
+        var res = await fetch('http://localhost:3000/api/pilot/change/'+props.match.params.id, {
             method: 'PUT', headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',

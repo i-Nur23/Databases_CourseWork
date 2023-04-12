@@ -165,7 +165,6 @@ function AddPilot(){
     }
 
     const SelectTeam= () => {
-        console.log(team);
         return (
             <select value={team} class="form-select" id="teamField" aria-describedby="numHelp" onChange={changeTeam}>
                 {teamsList.map(x => 

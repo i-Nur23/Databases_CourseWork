@@ -279,7 +279,6 @@ const ResultsTable = () => {
             </thead>
             <tbody className='table-group-divider'>
                 {pilots.map((pilot ,index)=> {
-                    console.log(pilots)
                     return(
                     <DrawRows pilot={pilot} index={index}/>
                 )})}

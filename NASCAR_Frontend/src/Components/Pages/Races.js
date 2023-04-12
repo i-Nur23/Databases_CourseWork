@@ -123,9 +123,7 @@ const RaceInfo = withRouter((props) => {
     useEffect(() => {
         (
             async () => {
-                console.log("fdsfsd")
-                console.log(props.match.params.id)
-                const response = await fetch('https://localhost:3000/api/results/withNums/'+props.match.params.id, {
+                const response = await fetch('http://localhost:3000/api/results/withNums/'+props.match.params.id, {
                     headers: {'Content-Type': 'application/json'},
                     credentials: 'include',
                 });
